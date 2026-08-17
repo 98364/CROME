@@ -193,26 +193,35 @@ def save_processed(events: list[RetailEvent], profile: dict[str, Any],
                    *, npz_path: Path, profile_path: Path) -> None:
     npz_path.parent.mkdir(parents=True, exist_ok=True)
     profile_path.parent.mkdir(parents=True, exist_ok=True)
-    customer_ids = np.asarray([event.customer_id for event in events])
-    _, trajectory_index = np.unique(customer_ids, return_inverse=True)
-    time_of_day_minutes = np.asarray(
-        [event.timestamp.hour * 60 + event.timestamp.minute for event in events],
-        dtype=np.int16,
-    )
+    customer_lookup = {
+        customer: index
+        for index, customer in enumerate(sorted({event.customer_id for event in events}))
+    }
     np.savez_compressed(
         npz_path,
-        trajectory_index=trajectory_index.astype(np.int32),
-        time_of_day_minutes=time_of_day_minutes,
+        customer_index=np.asarray(
+            [customer_lookup[event.customer_id] for event in events], dtype=np.int32
+        ),
+        timestamp_ns=np.asarray(
+            [np.datetime64(event.timestamp, "ns").astype(np.int64) for event in events], dtype=np.int64
+        ),
         mark=np.asarray([event.mark for event in events], dtype=np.int8),
     )
-    profile.update(
-        {
-            "processed_schema": ["trajectory_index", "time_of_day_minutes", "mark"],
-            "identifier_policy": "source customer and invoice identifiers are not retained",
-            "timing_policy": "calendar dates are removed; only minute of day is retained",
-        }
+    released_profile = dict(profile)
+    released_profile["released_fields"] = ["customer_index", "timestamp_ns", "mark"]
+    released_profile["excluded_transaction_fields"] = [
+        "customer_id",
+        "invoice",
+        "is_cancellation",
+        "abs_quantity",
+        "line_count",
+    ]
+    released_profile["customer_index_rule"] = (
+        "contiguous deterministic index over sorted eligible source customer identifiers"
     )
-    profile_path.write_text(json.dumps(profile, indent=2, allow_nan=False), encoding="utf-8")
+    profile_path.write_text(
+        json.dumps(released_profile, indent=2, allow_nan=False), encoding="utf-8"
+    )
 
 
 def events_as_dicts(events: list[RetailEvent]) -> list[dict[str, Any]]:

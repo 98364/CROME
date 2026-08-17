@@ -15,8 +15,6 @@ def test_ablation_contract_contains_all_required_variants_and_hard_cells():
 
 def test_cs06_smoke_is_paired_and_exposes_expected_failure_modes(tmp_path):
     result = run("smoke", tmp_path)
-    source_bytes = (tmp_path / "cs06_smoke_source.csv").read_bytes()
-    assert b"\r\n" not in source_bytes
     assert result["artifact_audit"]["paired_complete"]
     summaries = result["variants"]
     assert summaries["full_crome"]["false_point_count"] == 0

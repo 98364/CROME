@@ -31,7 +31,7 @@
     "source_url": "https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip",
     "doi": "https://doi.org/10.24432/C5CG6D",
     "license": "CC BY 4.0",
-    "retrieved": "2026-08-17",
+    "retrieved": "2026-08-11",
     "archive_sha256": "572e36277c2390fbfde10664750731e0a86f55e33470d91919085f0408e67bfb",
     "workbook_sha256": "bcbe73b35f5b7babf197fb0cb983a11f5d9ff929078d4aa53d171b1f2df2e980",
     "workbook_file": "online_retail_II.xlsx",
@@ -40,17 +40,23 @@
       "Year 2010-2011"
     ],
     "selection_rule": "all customers with nonmissing ID and at least min_customer_events",
-    "outcome_usage": "none; original outcomes/prices are not benchmark responses",
-    "processed_schema": [
-      "trajectory_index",
-      "time_of_day_minutes",
+    "outcome_usage": "timestamps and quantity/cancellation-derived marks only; original prices and quantities are not benchmark responses",
+    "released_fields": [
+      "customer_index",
+      "timestamp_ns",
       "mark"
     ],
-    "identifier_policy": "source customer and invoice identifiers are not retained",
-    "timing_policy": "calendar dates are removed; only minute of day is retained",
-    "processed_npz_sha256": "877ca0034e9092cdd4a44e864c8b61f88716a12f2bab562490046738edfc93a4"
+    "excluded_transaction_fields": [
+      "customer_id",
+      "invoice",
+      "is_cancellation",
+      "abs_quantity",
+      "line_count"
+    ],
+    "customer_index_rule": "contiguous deterministic index over sorted eligible source customer identifiers",
+    "processed_npz_sha256": "637c9984b8f4d949eaed049d2b01b3703334a840f46f83b9419273bb0ab6222f"
   },
-  "processed_data_sha256": "877ca0034e9092cdd4a44e864c8b61f88716a12f2bab562490046738edfc93a4",
+  "processed_data_sha256": "637c9984b8f4d949eaed049d2b01b3703334a840f46f83b9419273bb0ab6222f",
   "methods": {
     "crome": {
       "n_total": 480,
@@ -70,6 +76,7 @@
         }
       },
       "false_point_count": 0,
+      "false_public_point_count": 0,
       "nonpoint_oracle_count": 360,
       "false_point_rate": 0.0,
       "false_point_interval": {
@@ -96,12 +103,12 @@
         "lower": 0.9689808335812966,
         "upper": 1.0
       },
-      "target_rmse_conditional": 0.006441169674702103,
-      "target_rmse_unconditional": 0.006441169674702103,
-      "mean_interval_width": 0.2217760565223801,
+      "target_rmse_conditional": 0.006441169674706953,
+      "target_rmse_unconditional": 0.006441169674706953,
+      "mean_interval_width": 0.2217760565223856,
       "runtime_seconds": {
-        "mean": 0.04622217127302217,
-        "p95": 0.10111565209826949
+        "mean": 0.0473813078853406,
+        "p95": 0.10194565835081448
       }
     },
     "naive_boundary": {
@@ -122,6 +129,7 @@
         }
       },
       "false_point_count": 240,
+      "false_public_point_count": 240,
       "nonpoint_oracle_count": 360,
       "false_point_rate": 0.6666666666666666,
       "false_point_interval": {
@@ -148,12 +156,12 @@
         "lower": 0.9689808335812966,
         "upper": 1.0
       },
-      "target_rmse_conditional": 0.0025505028338110845,
-      "target_rmse_unconditional": 0.0025505028338110845,
-      "mean_interval_width": 0.11759999999999995,
+      "target_rmse_conditional": 0.0025505028338114067,
+      "target_rmse_unconditional": 0.0025505028338114067,
+      "mean_interval_width": 0.11759999999999994,
       "runtime_seconds": {
-        "mean": 5.857078336551543e-05,
-        "p95": 9.456694970140232e-05
+        "mean": 6.80871772753259e-05,
+        "p95": 0.00011854309996124357
       }
     },
     "ridge": {
@@ -174,6 +182,7 @@
         }
       },
       "false_point_count": 360,
+      "false_public_point_count": 360,
       "nonpoint_oracle_count": 360,
       "false_point_rate": 1.0,
       "false_point_interval": {
@@ -200,12 +209,12 @@
         "lower": 0.9689808335812966,
         "upper": 1.0
       },
-      "target_rmse_conditional": 0.0046383042339303866,
-      "target_rmse_unconditional": 0.0046383042339303866,
+      "target_rmse_conditional": 0.00463830423393065,
+      "target_rmse_unconditional": 0.00463830423393065,
       "mean_interval_width": 0.11759999999999995,
       "runtime_seconds": {
-        "mean": 1.8539791540206352e-05,
-        "p95": 2.704199869185686e-05
+        "mean": 1.956552511425495e-05,
+        "p95": 3.3671148412395265e-05
       }
     },
     "tsvd": {
@@ -226,6 +235,7 @@
         }
       },
       "false_point_count": 360,
+      "false_public_point_count": 360,
       "nonpoint_oracle_count": 360,
       "false_point_rate": 1.0,
       "false_point_interval": {
@@ -252,12 +262,12 @@
         "lower": 0.9689808335812966,
         "upper": 1.0
       },
-      "target_rmse_conditional": 0.004675799858507673,
-      "target_rmse_unconditional": 0.004675799858507673,
+      "target_rmse_conditional": 0.00467579985850785,
+      "target_rmse_unconditional": 0.00467579985850785,
       "mean_interval_width": 0.11759999999999995,
       "runtime_seconds": {
-        "mean": 3.368882720072482e-05,
-        "p95": 4.3339252260921055e-05
+        "mean": 3.708827287785728e-05,
+        "p95": 5.1639549928950134e-05
       }
     }
   },

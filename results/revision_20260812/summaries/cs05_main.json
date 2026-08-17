@@ -6,10 +6,42 @@
   "n_reps": 3,
   "n_cells": 28,
   "measurement_protocol": "single process; one warm-up excluded; perf_counter; tracemalloc peak plus explicit input bytes",
+  "runtime_environment": {
+    "python": "3.14.6",
+    "numpy": "2.5.1",
+    "scipy": "1.18.0",
+    "operating_system": {
+      "system": "Darwin",
+      "release": "25.6.0",
+      "version": "Darwin Kernel Version 25.6.0: Sat Jul 11 15:26:29 PDT 2026; root:xnu-12377.161.13~4/RELEASE_ARM64_T8132"
+    },
+    "architecture": "arm64",
+    "hardware_model": "Mac16,12",
+    "processor": "Apple M4",
+    "cpu_count": 10,
+    "physical_memory_bytes": 17179869184,
+    "linear_algebra": {
+      "blas": "accelerate",
+      "blas_version": "unknown",
+      "lapack": "accelerate",
+      "lapack_version": "unknown"
+    },
+    "thread_settings": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    },
+    "dependency_lock": {
+      "path": "requirements-jss-lock.txt",
+      "sha256": "4d303f76c70f12258da7a69747b3a0af4620e3b700dddf003a24f48c4d91c888"
+    }
+  },
   "empirical_slopes": {
-    "runtime_vs_rows": 1.0156006457096498,
-    "memory_vs_rows": 1.011371643725331,
-    "runtime_vs_parameter_dim": 0.8423592260243113,
+    "runtime_vs_rows": 1.0129775650254047,
+    "memory_vs_rows": 1.0113762351151072,
+    "runtime_vs_parameter_dim": 0.8414099003137635,
     "interpretation": "descriptive log-log slopes on the configured finite grid; not asymptotic complexity theorems"
   },
   "gate": {

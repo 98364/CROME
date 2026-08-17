@@ -11,8 +11,8 @@ rq3: verified single-component removals lose point yield or structural recovery
      without leaking points; an unsafe forced-point control demonstrates why the
      verified public path cannot be bypassed.
 
-All quantitative panels are computed from the 2026-08-12 revision summaries.
-Exports are double-column PDF figures with PNG previews.
+All quantitative panels are computed from the 2026-08-12 revision summaries.  Exports are
+double-column vector figures with editable text plus 600-dpi TIFF and PNG previews.
 """
 
 from __future__ import annotations
@@ -105,7 +105,7 @@ def _save(fig: plt.Figure, output_dir: Path, stem: str) -> list[Path]:
         "CreationDate": None,
         "ModDate": None,
     }
-    for suffix in ("pdf", "png"):
+    for suffix in ("pdf", "svg", "png", "tiff"):
         path = output_dir / f"{stem}.{suffix}"
         options: dict[str, Any] = {"bbox_inches": "tight", "pad_inches": 0.03}
         if suffix == "pdf":
@@ -744,9 +744,7 @@ def build_story_figures(output_dir: Path | str | None = None) -> dict[str, list[
     source_path = destination / "source_data.csv"
     with source_path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(
-            handle,
-            fieldnames=["figure", "panel", "metric", "value", "n"],
-            lineterminator="\n",
+            handle, fieldnames=["figure", "panel", "metric", "value", "n"]
         )
         writer.writeheader()
         writer.writerows(source_rows)

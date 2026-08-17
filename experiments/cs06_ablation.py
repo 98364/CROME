@@ -23,7 +23,7 @@ from crome_identification.certification import (
     certify_temporal_empirical,
     decide_target,
 )
-from crome_identification.evaluation import wilson_interval
+from crome_identification.evaluation import product_truth_allows_public_point, wilson_interval
 from crome_identification.evaluation.splits import split_trajectory_ids
 from crome_identification.seeding import make_seed_bundle
 
@@ -49,6 +49,23 @@ CELLS = {
     "scale_small": {"mass": 0.9, "kind": "clean", "level": 0.0, "scale": 1.0e-12, "shared": False},
     "scale_large": {"mass": 0.9, "kind": "clean", "level": 0.0, "scale": 1.0e3, "shared": False},
 }
+
+
+def _expected_product_status(cell_name: str) -> tuple[str, str]:
+    if CELLS[cell_name]["mass"] > 0:
+        return "UNKNOWN", "POINT_AT_TAU"
+    if cell_name == "structural_null":
+        return "NONIDENTIFIED", "INCONCLUSIVE"
+    return "UNKNOWN", "INCONCLUSIVE"
+
+
+def _expected_legacy_status(cell_name: str) -> str:
+    structural, operational = _expected_product_status(cell_name)
+    if structural == "NONIDENTIFIED":
+        return DecisionStatus.NONRECOVERABLE.value
+    if operational == "POINT_AT_TAU":
+        return DecisionStatus.POINT_ESTIMABLE.value
+    return DecisionStatus.INCONCLUSIVE.value
 
 
 def _interval(output: dict[str, Any]):
@@ -209,21 +226,21 @@ def _run_cell(cfg: dict[str, Any], cell_name: str, rep: int, mode: str, n_units:
                 "runtime_seconds": full["runtime_seconds"], "failed": False,
                 "reasons": ["fixed absolute tolerance rejects the scaled but full-rank operator"],
             }
+    expected_structural, expected_operational = _expected_product_status(cell_name)
+    expected_status = _expected_legacy_status(cell_name)
     return {
         "rep": rep, "cell": cell_name,
         "fixture_kind": "oracle_informed_contract_fixture",
         "evaluation_only": {
-            "expected_status": (
-                DecisionStatus.POINT_ESTIMABLE.value if cell["mass"] > 0
-                else DecisionStatus.NONRECOVERABLE.value
-            ),
+            "expected_status": expected_status,
+            "expected_structural_status": expected_structural,
+            "expected_operational_status": expected_operational,
             "support_mass": cell["mass"],
             "perturbation_label": cell["kind"],
         },
-        "expected_status": (
-            DecisionStatus.POINT_ESTIMABLE.value if cell["mass"] > 0
-            else DecisionStatus.NONRECOVERABLE.value
-        ),
+        "expected_status": expected_status,
+        "expected_structural_status": expected_structural,
+        "expected_operational_status": expected_operational,
         "true_target": data.true_target, "scale": scale,
         "split_disjoint": split.as_dict()["disjoint"],
         "methods": {
@@ -247,11 +264,18 @@ def _bootstrap_rmse(errors: list[float], reps: int, seed: int):
 
 
 def _variant_summary(cfg: dict[str, Any], records: list[dict[str, Any]], variant: str):
-    nonpoint = [row for row in records if row["expected_status"] != DecisionStatus.POINT_ESTIMABLE.value]
+    nonpoint = [
+        row for row in records
+        if not product_truth_allows_public_point(
+            row["expected_structural_status"], row["expected_operational_status"]
+        )
+    ]
     false_count = sum(row["methods"][variant]["status"] == DecisionStatus.POINT_ESTIMABLE.value for row in nonpoint)
     point_oracles = [
         row for row in records
-        if row["expected_status"] == DecisionStatus.POINT_ESTIMABLE.value
+        if product_truth_allows_public_point(
+            row["expected_structural_status"], row["expected_operational_status"]
+        )
     ]
     point_count = sum(
         row["methods"][variant]["status"] == DecisionStatus.POINT_ESTIMABLE.value
@@ -345,12 +369,19 @@ def _write_csv(records: list[dict[str, Any]], config_hash: str, path: Path):
             output = row["methods"][variant]; interval = _interval(output)
             rows.append({
                 "rep": row["rep"], "cell": row["cell"], "variant": variant,
-                "expected_status": row["expected_status"], "predicted_status": output["status"],
+                "expected_status": row["expected_status"],
+                "expected_structural_status": row["expected_structural_status"],
+                "expected_operational_status": row["expected_operational_status"],
+                "predicted_status": output["status"],
                 "structural_status": output.get("structural_status"),
                 "operational_status": output.get("operational_status"),
                 "certificate_scope": output.get("certificate_scope"),
-                "typed_contract_enforced": bool(output.get("typed_contract_enforced", False)),
-                "proof_verification_mandatory": bool(output.get("proof_verification_mandatory", False)),
+                "typed_contract_enforced": bool(
+                    output.get("typed_contract_enforced", False)
+                ),
+                "proof_verification_mandatory": bool(
+                    output.get("proof_verification_mandatory", False)
+                ),
                 "ablated_component": output.get("ablated_component"),
                 "true_target": row["true_target"], "point_estimate": output.get("point_estimate"),
                 "interval_lower": interval[0] if interval else None, "interval_upper": interval[1] if interval else None,
@@ -358,13 +389,7 @@ def _write_csv(records: list[dict[str, Any]], config_hash: str, path: Path):
             })
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(
-            handle,
-            fieldnames=list(rows[0]),
-            lineterminator="\n",
-        )
-        writer.writeheader()
-        writer.writerows(rows)
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0])); writer.writeheader(); writer.writerows(rows)
 
 
 def run(mode: str = "smoke", outdir: Path | None = None) -> dict[str, Any]:

@@ -219,6 +219,35 @@ def _proof_contract_failure_reason(
                 verification_diagnostics,
                 StructuralStatus.UNKNOWN,
             )
+        if (
+            cert.scope is CertificateScope.POPULATION_EXACT
+            and cert.mode is not CertificationMode.DESIGN_KNOWN
+        ):
+            return (
+                f"{cert.source} population-exact scope is incompatible with "
+                f"{cert.mode.value} mode",
+                verification_diagnostics,
+                StructuralStatus.UNKNOWN,
+            )
+        if (
+            cert.scope is CertificateScope.POPULATION_EXACT
+            and isinstance(cert.proof, LinearBoundProof)
+        ):
+            uncertainty_budgets = (
+                cert.proof.design_error_bound,
+                cert.proof.noise_radius,
+                cert.proof.baseline_support_radius,
+                cert.proof.approximation_support_radius,
+                cert.proof.additive_baseline_error,
+                cert.proof.additive_approximation_error,
+            )
+            if any(Fraction(value) != 0 for value in uncertainty_budgets):
+                return (
+                    f"{cert.source} population-exact linear proof cannot carry "
+                    "design error or other nonzero uncertainty budgets",
+                    verification_diagnostics,
+                    StructuralStatus.UNKNOWN,
+                )
         proof_target_id = str(getattr(cert.proof, "target_id", "")).strip()
         if not proof_target_id or proof_target_id != cert.target_id:
             return (

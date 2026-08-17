@@ -29,7 +29,12 @@ from crome_identification.certification import (
     certify_temporal_gap_conditional,
     decide_target,
 )
-from crome_identification.evaluation import EvaluationRow, summarize_method_rows, wilson_interval
+from crome_identification.evaluation import (
+    EvaluationRow,
+    product_truth_allows_public_point,
+    summarize_method_rows,
+    wilson_interval,
+)
 from crome_identification.evaluation.splits import split_trajectory_ids
 from crome_identification.seeding import make_seed_bundle
 
@@ -46,6 +51,12 @@ _EXPECTED = {
     "daily_gap": DecisionStatus.SET_ESTIMABLE.value,
     "target_mark_collapse": DecisionStatus.NONRECOVERABLE.value,
     "rounded_hidden_time": DecisionStatus.INCONCLUSIVE.value,
+}
+_EXPECTED_PRODUCT = {
+    "fine_4h": ("UNKNOWN", "POINT_AT_TAU"),
+    "daily_gap": ("NONIDENTIFIED", "SET"),
+    "target_mark_collapse": ("NONIDENTIFIED", "INCONCLUSIVE"),
+    "rounded_hidden_time": ("UNKNOWN", "INCONCLUSIVE"),
 }
 
 
@@ -107,11 +118,13 @@ def _build_real_timing_geometry(path: Path, regime: str) -> RealTimingGeometry:
     if regime not in _EXPECTED:
         raise ValueError(f"unknown real-timing regime: {regime}")
     arrays = np.load(Path(path), allow_pickle=False)
-    customers, customer_index = np.unique(
-        arrays["trajectory_index"].astype(np.int64), return_inverse=True
-    )
+    if "customer_index" in arrays:
+        customer_index = arrays["customer_index"].astype(int)
+        customers = np.unique(customer_index)
+    else:
+        customers, customer_index = np.unique(arrays["customer_id"].astype(str), return_inverse=True)
     marks = arrays["mark"].astype(int)
-    timestamp_hours = arrays["time_of_day_minutes"].astype(np.float64) / 60.0
+    timestamp_hours = arrays["timestamp_ns"].astype(np.float64) / 3.6e12
     cadence = 4.0 if regime in {"fine_4h", "target_mark_collapse", "rounded_hidden_time"} else 24.0
     near_zero = 1.0
     true_lags = _calendar_lags(timestamp_hours, cadence)
@@ -347,18 +360,26 @@ def _run_regime(cfg: dict[str, Any], geometry: RealTimingGeometry, rep: int,
         rank=int(cfg["parameter_dim"]),
     )
     radius = 1.96 * float(cfg["outcome_noise_sigma"])
+    expected_structural, expected_operational = _EXPECTED_PRODUCT[geometry.regime]
     return {
         "rep": rep, "regime": geometry.regime, "expected_status": _EXPECTED[geometry.regime],
+        "expected_structural_status": expected_structural,
+        "expected_operational_status": expected_operational,
         "fixture_kind": "oracle_informed_contract_fixture",
         "evaluation_only": {
             "expected_status": _EXPECTED[geometry.regime],
+            "expected_structural_status": expected_structural,
+            "expected_operational_status": expected_operational,
             "regime_label": geometry.regime,
         },
         "n_customers": geometry.n_customers, "n_events": int(geometry.event_marks.size),
         "target_near_zero_count": geometry.target_near_zero_count,
         "observed_target_near_zero_count": geometry.observed_target_near_zero_count,
         "true_target": data.true_target, "target_definition": "C @ theta",
-        "data_roles": {"geometry": "real timestamps only", "responses": "injected after geometry freeze"},
+        "data_roles": {
+            "geometry": "real timestamps and transaction-derived categorical marks",
+            "responses": "synthetic and injected after geometry freeze",
+        },
         "split_disjoint": split.as_dict()["disjoint"], "calibration": calibration_record,
         "methods": {
             "crome": crome, "naive_boundary": _baseline(naive, radius),
@@ -381,6 +402,8 @@ def _rows(records: list[dict[str, Any]], method: str):
         point_estimate=row["methods"][method].get("point_estimate"),
         interval=_interval(row["methods"][method], method), true_target=row["true_target"],
         runtime_seconds=row["methods"][method]["runtime_seconds"], failed=row["methods"][method]["failed"],
+        expected_structural_status=row["expected_structural_status"],
+        expected_operational_status=row["expected_operational_status"],
     ) for row in records]
 
 
@@ -396,7 +419,12 @@ def _coverage(records: list[dict[str, Any]], expected: str, level: float):
 
 def _gate(cfg: dict[str, Any], records: list[dict[str, Any]], eligible: int):
     level = float(cfg["mc_confidence_level"])
-    nonpoint = [row for row in records if row["expected_status"] != DecisionStatus.POINT_ESTIMABLE.value]
+    nonpoint = [
+        row for row in records
+        if not product_truth_allows_public_point(
+            row["expected_structural_status"], row["expected_operational_status"]
+        )
+    ]
     false_points = sum(row["methods"]["crome"]["status"] == DecisionStatus.POINT_ESTIMABLE.value for row in nonpoint)
     false_ci = wilson_interval(false_points, len(nonpoint), level=level)
     point_cov, point_n, point_ci = _coverage(records, DecisionStatus.POINT_ESTIMABLE.value, level)
@@ -450,7 +478,10 @@ def _write_source(records: list[dict[str, Any]], config_hash: str, path: Path):
             output = row["methods"][method]; interval = _interval(output, method)
             rows.append({
                 "rep": row["rep"], "regime": row["regime"], "method": method,
-                "expected_status": row["expected_status"], "predicted_status": output["status"],
+                "expected_status": row["expected_status"],
+                "expected_structural_status": row["expected_structural_status"],
+                "expected_operational_status": row["expected_operational_status"],
+                "predicted_status": output["status"],
                 "structural_status": output.get("structural_status"),
                 "operational_status": output.get("operational_status"),
                 "certificate_scope": output.get("certificate_scope"),
@@ -461,13 +492,7 @@ def _write_source(records: list[dict[str, Any]], config_hash: str, path: Path):
             })
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(
-            handle,
-            fieldnames=list(rows[0]),
-            lineterminator="\n",
-        )
-        writer.writeheader()
-        writer.writerows(rows)
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0])); writer.writeheader(); writer.writerows(rows)
 
 
 def run(mode: str = "smoke", outdir: Path | None = None) -> dict[str, Any]:

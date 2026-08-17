@@ -19,6 +19,7 @@ from crome_identification.certification.types import (
     FailureBudget,
     FailureBudgetLedger,
     AnchoredEnvelopeProof,
+    LinearBoundProof,
     OperationalStatus,
     StructuralStatus,
     TargetCertificate,
@@ -177,6 +178,72 @@ def test_linear_proof_delta_cannot_be_relabelled_by_the_outer_certificate():
 
     assert decision.status is DecisionStatus.INCONCLUSIVE
     assert "proof and certificate delta" in " ".join(decision.reasons)
+
+
+def test_estimated_design_linear_proof_cannot_be_relabelled_population_exact():
+    proof = LinearBoundProof(
+        operator=((1,),),
+        outcome=(0,),
+        target=(1,),
+        weights=(1,),
+        theta_radius=1,
+        design_error_bound="0.1",
+        noise_radius=0,
+        baseline_support_radius=0,
+        approximation_support_radius=0,
+        additive_baseline_error=0,
+        additive_approximation_error=0,
+        center=0,
+        claimed_radius="0.1",
+        units="response units",
+        uncertainty_definition="estimated design with an operator-norm error bound",
+        provenance="unit-test estimated design",
+        schema_version="crome.linear-bound.v1",
+        producer_version="crome-identification/0.1.0",
+        artifact_hash="sha256:" + "0" * 64,
+        failure_allocations=(),
+        target_id="unit-test-target",
+    )
+    proof = replace(proof, artifact_hash=proof.recompute_artifact_hash())
+    forged = TargetCertificate(
+        source="forged-estimated-design",
+        mode=CertificationMode.DESIGN_KNOWN,
+        scope=CertificateScope.POPULATION_EXACT,
+        valid=True,
+        feasible_set=TargetInterval(-0.1, 0.1),
+        claim_type=CertificateClaimType.STRUCTURAL_EVIDENCE,
+        provenance="caller-relabelled estimated design",
+        proof=proof,
+        target_id="unit-test-target",
+    )
+
+    decision = decide_target([forged], scientific_tolerance=0.1)
+
+    assert decision.status is DecisionStatus.INCONCLUSIVE
+    assert decision.structural_status is StructuralStatus.UNKNOWN
+    assert "design error" in " ".join(decision.reasons)
+
+
+def test_assumption_conditional_mode_cannot_be_relabelled_population_exact():
+    certificate = certify_overlap_target(
+        np.eye(1),
+        np.array([0.0]),
+        np.array([1.0]),
+        noise_radius=0.0,
+        design_error_bound=0.0,
+        theta_radius=1.0,
+        exact_design=False,
+        deterministic_uncertainty=True,
+        provenance="unit-test conditional design",
+    )
+
+    decision = decide_target(
+        [replace(certificate, scope=CertificateScope.POPULATION_EXACT)],
+        scientific_tolerance=0.0,
+    )
+
+    assert decision.status is DecisionStatus.INCONCLUSIVE
+    assert "mode" in " ".join(decision.reasons)
 
 
 def test_point_decision_is_the_only_status_with_point_output():

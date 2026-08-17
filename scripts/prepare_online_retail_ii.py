@@ -26,6 +26,12 @@ def prepare(root: Path, *, min_customer_events: int = 5) -> dict:
     root = Path(root)
     raw_dir = root / "data" / "raw" / "online_retail_ii"
     processed_dir = root / "data" / "processed"
+    profile_path = processed_dir / "online_retail_ii_profile.json"
+    existing_profile = (
+        json.loads(profile_path.read_text(encoding="utf-8"))
+        if profile_path.exists()
+        else {}
+    )
     raw_dir.mkdir(parents=True, exist_ok=True)
     archive = raw_dir / "online_retail_ii.zip"
     if not archive.exists():
@@ -50,21 +56,26 @@ def prepare(root: Path, *, min_customer_events: int = 5) -> dict:
             "source_url": URL,
             "doi": DOI,
             "license": LICENSE,
-            "retrieved": date.today().isoformat(),
+            "retrieved": existing_profile.get("retrieved", date.today().isoformat()),
             "archive_sha256": sha256_file(archive),
             "workbook_sha256": sha256_file(workbook),
             "workbook_file": workbook.name,
             "sheet_names": sheets,
             "selection_rule": "all customers with nonmissing ID and at least min_customer_events",
-            "outcome_usage": "none; original outcomes/prices are not benchmark responses",
+            "outcome_usage": (
+                "timestamps and quantity/cancellation-derived marks only; "
+                "original prices and quantities are not benchmark responses"
+            ),
         }
     )
     npz_path = processed_dir / "online_retail_ii_events.npz"
-    profile_path = processed_dir / "online_retail_ii_profile.json"
     save_processed(events, profile, npz_path=npz_path, profile_path=profile_path)
-    profile["processed_npz_sha256"] = sha256_file(npz_path)
-    profile_path.write_text(json.dumps(profile, indent=2, allow_nan=False), encoding="utf-8")
-    return profile
+    released_profile = json.loads(profile_path.read_text(encoding="utf-8"))
+    released_profile["processed_npz_sha256"] = sha256_file(npz_path)
+    profile_path.write_text(
+        json.dumps(released_profile, indent=2, allow_nan=False), encoding="utf-8"
+    )
+    return released_profile
 
 
 def main() -> None:

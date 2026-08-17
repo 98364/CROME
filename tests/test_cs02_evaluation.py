@@ -48,6 +48,35 @@ def test_method_summary_counts_failures_without_conditioning_on_success():
     assert out["target_rmse_unconditional"] == pytest.approx(np.sqrt(2.0))
 
 
+def test_false_public_points_use_product_truth_not_legacy_expected_status():
+    rows = [
+        EvaluationRow(
+            "POINT_ESTIMABLE",
+            "POINT_ESTIMABLE",
+            1.0,
+            (0.9, 1.1),
+            1.0,
+            expected_structural_status="NONIDENTIFIED",
+            expected_operational_status="POINT_AT_TAU",
+        ),
+        EvaluationRow(
+            "NONRECOVERABLE",
+            "POINT_ESTIMABLE",
+            1.0,
+            (0.9, 1.1),
+            1.0,
+            expected_structural_status="UNKNOWN",
+            expected_operational_status="POINT_AT_TAU",
+        ),
+    ]
+
+    out = summarize_method_rows(rows)
+
+    assert out["false_point_count"] == 1
+    assert out["nonpoint_oracle_count"] == 1
+    assert out["point_oracle_count"] == 1
+
+
 def test_wilson_interval_is_finite_at_boundaries():
     zero = wilson_interval(0, 20, level=0.95)
     all_success = wilson_interval(20, 20, level=0.95)

@@ -371,11 +371,13 @@ def _verify_exact_null(proof: ExactNullProof) -> ProofVerification:
             base = _vector(proof.base_parameter or (), "base_parameter")
             lower = _vector(proof.parameter_lower or (), "parameter_lower")
             upper = _vector(proof.parameter_upper or (), "parameter_upper")
-            step = _fraction(proof.step or 0)
+            step = _fraction(proof.step)
         except (TypeError, ValueError) as exc:
             return _invalid(proof, str(exc))
         if not (len(base) == len(lower) == len(upper) == len(witness)):
             return _invalid(proof, "box feasibility dimensions do not agree")
+        if step == 0:
+            return _invalid(proof, "box witness step must be nonzero")
         shifted = tuple(value + step * direction for value, direction in zip(base, witness))
         if any(lo > hi for lo, hi in zip(lower, upper)) or any(
             not (lo <= value <= hi and lo <= moved <= hi)
@@ -427,8 +429,13 @@ def _verify_support_gap(proof: SupportGapProof) -> ProofVerification:
         proof.target_id,
     ):
         return _invalid(proof, "support specification, premises, units, and provenance are required")
-    if gap_lower >= gap_upper:
-        return _invalid(proof, "support gap must have positive width")
+    if gap_lower != 0 or gap_upper <= 0:
+        return _invalid(
+            proof,
+            "support-gap nonidentification requires a zero-anchored boundary gap (0, a)",
+        )
+    if any(point <= 0 for point in support):
+        return _invalid(proof, "observed support must contain strictly positive lags")
     if isinstance(proof.bump_power, bool) or not isinstance(proof.bump_power, int) or proof.bump_power <= 0:
         return _invalid(proof, "bump_power must be a positive integer")
     if amplitude == 0:
@@ -559,7 +566,9 @@ def _verify_linear_bound(proof: LinearBoundProof) -> ProofVerification:
         valid=True,
         proof_type=type(proof).__name__,
         recomputed_interval=interval,
-        proves_identification=all(value == 0 for value in residual),
+        proves_identification=(
+            all(value == 0 for value in residual) and design_error == 0
+        ),
         diagnostics={
             "exact_target_residual": residual,
             "recomputed_radius": recomputed,

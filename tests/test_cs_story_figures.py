@@ -12,7 +12,9 @@ def test_story_figure_package_has_one_schematic_and_three_rq_figures(tmp_path):
 
     assert set(exported) == {"pipeline", "rq1", "rq2", "rq3"}
     for paths in exported.values():
-        assert {path.suffix for path in paths} == {".pdf", ".png"}
+        assert {path.suffix for path in paths} == {".pdf", ".svg", ".png", ".tiff"}
+        svg = next(path for path in paths if path.suffix == ".svg")
+        assert "<text" in svg.read_text(encoding="utf-8")
         png = next(path for path in paths if path.suffix == ".png")
         with Image.open(png) as image:
             assert image.width >= 800
@@ -20,8 +22,14 @@ def test_story_figure_package_has_one_schematic_and_three_rq_figures(tmp_path):
 
     assert (tmp_path / "manifest.json").exists()
     assert (tmp_path / "source_data.csv").exists()
-    assert (tmp_path / "figure_00_evidence_certificate_route.pdf").exists()
-    assert (tmp_path / "figure_03_routing_ablation.pdf").exists()
+    pipeline_svg = (tmp_path / "figure_00_evidence_certificate_route.svg").read_text(
+        encoding="utf-8"
+    )
+    rq3_svg = (tmp_path / "figure_03_routing_ablation.svg").read_text(
+        encoding="utf-8"
+    )
+    assert "Structural · operational · scope" in pipeline_svg
+    assert "Unsafe forced" in rq3_svg
 
     manifest = json.loads((tmp_path / "manifest.json").read_text(encoding="utf-8"))
     revision_summary = (

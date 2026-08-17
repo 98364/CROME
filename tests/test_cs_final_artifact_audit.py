@@ -1,3 +1,5 @@
+import hashlib
+import json
 from pathlib import Path
 
 from experiments import cs03_perturbation_grid as cs03
@@ -8,6 +10,7 @@ from crome_identification.evaluation.artifact_audit import (
     audit_revision_cs_artifacts,
 )
 from experiments.cs_final_gate import (
+    _figure_contract,
     _repository_manifest_paths,
     _single_component_ablation_contract,
     build_final_gate,
@@ -20,10 +23,50 @@ def test_repository_release_manifest_is_self_contained():
     relatives = {path.relative_to(root).as_posix() for path in paths}
 
     assert "README.md" in relatives
+    assert "requirements-jss-lock.txt" in relatives
     assert all(not relative.startswith("GitHub/") for relative in relatives)
     assert all(not relative.startswith("results/raw/") for relative in relatives)
     assert all(not relative.startswith("data/raw/") for relative in relatives)
     assert all(not relative.startswith("paper/") for relative in relatives)
+    assert all(not relative.startswith("JSS/") for relative in relatives)
+    assert all(Path(relative).suffix not in {".svg", ".tiff"} for relative in relatives)
+
+
+def test_compact_figure_contract_checks_only_distributed_formats(tmp_path):
+    revision_root = tmp_path / "results/revision_20260812"
+    summary_root = revision_root / "summaries"
+    figure_root = tmp_path / "results/figures/cs"
+    summary_root.mkdir(parents=True)
+    figure_root.mkdir(parents=True)
+
+    source_hashes = {}
+    for name in ("cs03_main.json", "cs06_main.json"):
+        path = summary_root / name
+        path.write_text("{}", encoding="utf-8")
+        source_hashes[name] = hashlib.sha256(path.read_bytes()).hexdigest()
+
+    formats = {}
+    for suffix in ("pdf", "png"):
+        path = figure_root / f"figure.{suffix}"
+        path.write_bytes(suffix.encode("ascii"))
+        formats[suffix] = {
+            "name": path.name,
+            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+        }
+    for suffix in ("svg", "tiff"):
+        formats[suffix] = {
+            "name": f"figure.{suffix}",
+            "sha256": "0" * 64,
+        }
+    (figure_root / "manifest.json").write_text(
+        json.dumps({"figures": {"rq": formats}, "source_summaries": source_hashes}),
+        encoding="utf-8",
+    )
+
+    audit = _figure_contract(tmp_path, revision_root)
+
+    assert audit["passed"]
+    assert {Path(row["path"]).suffix for row in audit["files"]} == {".pdf", ".png"}
 
 
 def test_public_source_tables_use_portable_lf_line_endings():

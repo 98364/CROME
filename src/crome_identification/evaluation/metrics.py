@@ -20,6 +20,31 @@ class EvaluationRow:
     true_target: float
     runtime_seconds: float = 0.0
     failed: bool = False
+    expected_structural_status: str | None = None
+    expected_operational_status: str | None = None
+
+
+def product_truth_allows_public_point(
+    structural_status: str,
+    operational_status: str,
+) -> bool:
+    """Return whether the product truth permits exposure of a public point."""
+    return structural_status != "NONIDENTIFIED" and operational_status == "POINT_AT_TAU"
+
+
+def _oracle_allows_public_point(row: EvaluationRow) -> bool:
+    product_values = (
+        row.expected_structural_status,
+        row.expected_operational_status,
+    )
+    if product_values == (None, None):
+        return row.expected_status == "POINT_ESTIMABLE"
+    if None in product_values:
+        raise ValueError("product truth requires both structural and operational statuses")
+    return product_truth_allows_public_point(
+        row.expected_structural_status,
+        row.expected_operational_status,
+    )
 
 
 def wilson_interval(successes: int, total: int, *, level: float = 0.95) -> dict[str, Any]:
@@ -90,7 +115,8 @@ def summarize_method_rows(
         abstentions += int(row.predicted_status == "INCONCLUSIVE" or row.failed)
         runtimes.append(float(row.runtime_seconds))
 
-        if row.expected_status != "POINT_ESTIMABLE":
+        oracle_allows_point = _oracle_allows_public_point(row)
+        if not oracle_allows_point:
             nonpoint_oracles += 1
             false_points += int(row.predicted_status == "POINT_ESTIMABLE")
 
@@ -103,7 +129,7 @@ def summarize_method_rows(
             if interval_valid:
                 widths.append(upper - lower)
 
-        if row.expected_status == "POINT_ESTIMABLE":
+        if oracle_allows_point:
             point_oracles += 1
             if interval_valid:
                 lower, upper = row.interval or (math.inf, -math.inf)
@@ -128,6 +154,7 @@ def summarize_method_rows(
             expected: dict(predictions) for expected, predictions in confusion.items()
         },
         "false_point_count": false_points,
+        "false_public_point_count": false_points,
         "nonpoint_oracle_count": nonpoint_oracles,
         "false_point_rate": false_point["rate"],
         "false_point_interval": false_point["interval"],
@@ -155,4 +182,3 @@ def summarize_method_rows(
             "p95": float(np.quantile(runtimes, 0.95)),
         },
     }
-

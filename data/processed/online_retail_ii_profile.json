@@ -22,7 +22,7 @@
   "source_url": "https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip",
   "doi": "https://doi.org/10.24432/C5CG6D",
   "license": "CC BY 4.0",
-  "retrieved": "2026-08-17",
+  "retrieved": "2026-08-11",
   "archive_sha256": "572e36277c2390fbfde10664750731e0a86f55e33470d91919085f0408e67bfb",
   "workbook_sha256": "bcbe73b35f5b7babf197fb0cb983a11f5d9ff929078d4aa53d171b1f2df2e980",
   "workbook_file": "online_retail_II.xlsx",
@@ -31,13 +31,19 @@
     "Year 2010-2011"
   ],
   "selection_rule": "all customers with nonmissing ID and at least min_customer_events",
-  "outcome_usage": "none; original outcomes/prices are not benchmark responses",
-  "processed_schema": [
-    "trajectory_index",
-    "time_of_day_minutes",
+  "outcome_usage": "timestamps and quantity/cancellation-derived marks only; original prices and quantities are not benchmark responses",
+  "released_fields": [
+    "customer_index",
+    "timestamp_ns",
     "mark"
   ],
-  "identifier_policy": "source customer and invoice identifiers are not retained",
-  "timing_policy": "calendar dates are removed; only minute of day is retained",
-  "processed_npz_sha256": "877ca0034e9092cdd4a44e864c8b61f88716a12f2bab562490046738edfc93a4"
+  "excluded_transaction_fields": [
+    "customer_id",
+    "invoice",
+    "is_cancellation",
+    "abs_quantity",
+    "line_count"
+  ],
+  "customer_index_rule": "contiguous deterministic index over sorted eligible source customer identifiers",
+  "processed_npz_sha256": "637c9984b8f4d949eaed049d2b01b3703334a840f46f83b9419273bb0ab6222f"
 }

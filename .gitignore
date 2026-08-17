@@ -21,6 +21,10 @@ data/raw/
 results/raw/
 results/logs/
 
+# Generated high-resolution/editable exports; the compact release tracks PDF/PNG.
+results/figures/cs/*.svg
+results/figures/cs/*.tiff
+
 # Editor and local environment files.
 .idea/
 .vscode/

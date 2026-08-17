@@ -64,6 +64,22 @@ def test_wrong_or_infeasible_exact_witness_is_rejected():
     assert "feasible" in infeasible.reason
 
 
+def test_box_exact_null_proof_requires_two_distinct_parameter_points():
+    result = verify_proof(
+        _exact_null_proof(
+            parameter_space="box",
+            base_parameter=(0, 0),
+            step=0,
+            parameter_lower=(-1, -1),
+            parameter_upper=(1, 1),
+        )
+    )
+
+    assert not result.valid
+    assert not result.proves_nonidentification
+    assert "nonzero" in result.reason
+
+
 def test_support_gap_proof_requires_gap_and_observational_equivalence():
     proof = SupportGapProof(
         observed_support=(Fraction(1, 2), 1, 2),
@@ -111,6 +127,63 @@ def test_support_gap_proof_requires_gap_and_observational_equivalence():
     assert "target" in wrong_target.reason
 
 
+def test_support_gap_proof_rejects_an_internal_gap_unrelated_to_zero():
+    proof = SupportGapProof(
+        observed_support=(Fraction(1, 10), Fraction(5, 2)),
+        gap=(1, 2),
+        observed_signature_left=(0, 0),
+        observed_signature_right=(0, 0),
+        target_value_left=0,
+        target_value_right=1,
+        response_class_premise="closed under the supplied local bump",
+        support_specification="auditable deterministic observation schedule",
+        units="hours",
+        provenance="schedule hash sha256:internal-gap-fixture",
+        baseline_level=0,
+        bump_amplitude=1,
+        bump_power=2,
+        schema_version="crome.support-gap.v1",
+        producer_version="crome-identification/0.1.0",
+        artifact_hash="sha256:" + "0" * 64,
+        target_id="unit-test-target",
+    )
+    proof = replace(proof, artifact_hash=proof.recompute_artifact_hash())
+
+    result = verify_proof(proof)
+
+    assert not result.valid
+    assert not result.proves_nonidentification
+    assert "zero-anchored" in result.reason
+
+
+def test_support_gap_proof_requires_strictly_positive_observed_lags():
+    proof = SupportGapProof(
+        observed_support=(-1, 1),
+        gap=(0, Fraction(1, 2)),
+        observed_signature_left=(0, 0),
+        observed_signature_right=(0, 0),
+        target_value_left=0,
+        target_value_right=1,
+        response_class_premise="closed under the supplied local bump",
+        support_specification="auditable deterministic observation schedule",
+        units="hours",
+        provenance="schedule hash sha256:nonpositive-lag-fixture",
+        baseline_level=0,
+        bump_amplitude=1,
+        bump_power=2,
+        schema_version="crome.support-gap.v1",
+        producer_version="crome-identification/0.1.0",
+        artifact_hash="sha256:" + "0" * 64,
+        target_id="unit-test-target",
+    )
+    proof = replace(proof, artifact_hash=proof.recompute_artifact_hash())
+
+    result = verify_proof(proof)
+
+    assert not result.valid
+    assert "positive lags" in result.reason
+
+
 def test_linear_bound_radius_is_recomputed_from_payload():
     proof = LinearBoundProof(
         operator=((1, 0), (0, 1)),
@@ -148,6 +221,39 @@ def test_linear_bound_radius_is_recomputed_from_payload():
     assert result.recomputed_interval == TargetInterval(0.7, 1.3)
     assert not tampered.valid
     assert "artifact hash" in tampered.reason
+
+
+def test_linear_bound_with_design_error_does_not_prove_structural_identification():
+    proof = LinearBoundProof(
+        operator=((1,),),
+        outcome=(0,),
+        target=(1,),
+        weights=(1,),
+        theta_radius=1,
+        design_error_bound=Fraction(1, 10),
+        noise_radius=0,
+        baseline_support_radius=0,
+        approximation_support_radius=0,
+        additive_baseline_error=0,
+        additive_approximation_error=0,
+        center=0,
+        claimed_radius=Fraction(1, 10),
+        units="response units",
+        uncertainty_definition="estimated design with an operator-norm error bound",
+        provenance="unit-test estimated design",
+        schema_version="crome.linear-bound.v1",
+        producer_version="crome-identification/0.1.0",
+        artifact_hash="sha256:" + "0" * 64,
+        failure_allocations=(),
+        target_id="unit-test-target",
+    )
+    proof = replace(proof, artifact_hash=proof.recompute_artifact_hash())
+
+    result = verify_proof(proof)
+
+    assert result.valid
+    assert result.recomputed_interval == TargetInterval(-0.1, 0.1)
+    assert not result.proves_identification
 
 
 @pytest.mark.parametrize(

@@ -27,6 +27,7 @@
         }
       },
       "false_point_count": 0,
+      "false_public_point_count": 0,
       "nonpoint_oracle_count": 1500,
       "false_point_rate": 0.0,
       "false_point_interval": {
@@ -57,8 +58,8 @@
       "target_rmse_unconditional": 0.0005270631366298509,
       "mean_interval_width": 0.16015836628414568,
       "runtime_seconds": {
-        "mean": 0.019859556186976986,
-        "p95": 0.03560989584657363
+        "mean": 0.019580802110609512,
+        "p95": 0.03518791665082972
       }
     },
     "naive_boundary": {
@@ -79,6 +80,7 @@
         }
       },
       "false_point_count": 1500,
+      "false_public_point_count": 1500,
       "nonpoint_oracle_count": 1500,
       "false_point_rate": 1.0,
       "false_point_interval": {
@@ -109,8 +111,8 @@
       "target_rmse_unconditional": 0.002605621101814369,
       "mean_interval_width": 0.4014727495011713,
       "runtime_seconds": {
-        "mean": 4.597551405095146e-05,
-        "p95": 7.808510126778856e-05
+        "mean": 2.9097030419507065e-05,
+        "p95": 4.68812504550442e-05
       }
     },
     "ridge": {
@@ -131,6 +133,7 @@
         }
       },
       "false_point_count": 1500,
+      "false_public_point_count": 1500,
       "nonpoint_oracle_count": 1500,
       "false_point_rate": 1.0,
       "false_point_interval": {
@@ -161,8 +164,8 @@
       "target_rmse_unconditional": 0.0005299917887552454,
       "mean_interval_width": 0.049475529231184916,
       "runtime_seconds": {
-        "mean": 1.7682344521745108e-05,
-        "p95": 2.7670199415297244e-05
+        "mean": 1.417753392161103e-05,
+        "p95": 1.8916995395557022e-05
       }
     },
     "tsvd": {
@@ -183,6 +186,7 @@
         }
       },
       "false_point_count": 1500,
+      "false_public_point_count": 1500,
       "nonpoint_oracle_count": 1500,
       "false_point_rate": 1.0,
       "false_point_interval": {
@@ -213,8 +217,8 @@
       "target_rmse_unconditional": 0.0005270631366298793,
       "mean_interval_width": 0.04947871181654719,
       "runtime_seconds": {
-        "mean": 2.9735751428233925e-05,
-        "p95": 3.887499769916758e-05
+        "mean": 2.585927298059687e-05,
+        "p95": 3.0213097852538335e-05
       }
     }
   },

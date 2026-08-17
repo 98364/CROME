@@ -1,12 +1,12 @@
 from datetime import datetime
 
+import numpy as np
+
 from crome_identification.benchmarks.online_retail import (
     REQUIRED_COLUMNS,
     preprocess_rows,
     save_processed,
 )
-
-import numpy as np
 
 
 def _row(invoice, customer, when, quantity, stock="S1", price=2.0):
@@ -65,20 +65,20 @@ def test_customer_filter_and_order_are_deterministic():
     assert profile["eligible_customers"] == 1
 
 
-def test_saved_fixture_contains_only_anonymized_timing_geometry(tmp_path):
-    rows = [
-        _row("A-100", 17, datetime(2010, 1, 1, 10, 30), 3),
-        _row("A-101", 17, datetime(2010, 1, 2, 12, 45), 4),
-        _row("B-200", 99, datetime(2010, 1, 3, 8, 15), 5),
-    ]
-    events, profile = preprocess_rows(rows, quantity_threshold=20, min_customer_events=1)
+def test_released_processed_file_omits_direct_transaction_identifiers(tmp_path):
+    events, profile = preprocess_rows(
+        [
+            _row("100", 7, datetime(2010, 1, 2, 10, 30), 8),
+            _row("101", 7, datetime(2010, 1, 3, 10, 30), 25),
+        ],
+        quantity_threshold=20,
+        min_customer_events=1,
+    )
     npz_path = tmp_path / "events.npz"
     profile_path = tmp_path / "profile.json"
 
     save_processed(events, profile, npz_path=npz_path, profile_path=profile_path)
 
     with np.load(npz_path, allow_pickle=False) as arrays:
-        assert set(arrays.files) == {"trajectory_index", "time_of_day_minutes", "mark"}
-        assert arrays["trajectory_index"].dtype == np.int32
-        assert arrays["trajectory_index"].tolist() == [0, 0, 1]
-        assert arrays["time_of_day_minutes"].tolist() == [630, 765, 495]
+        assert set(arrays.files) == {"customer_index", "timestamp_ns", "mark"}
+        assert arrays["customer_index"].dtype.kind in {"i", "u"}

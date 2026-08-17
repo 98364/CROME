@@ -38,7 +38,12 @@ from crome_identification.certification import (
     certify_temporal_gap_conditional,
     decide_target,
 )
-from crome_identification.evaluation import EvaluationRow, summarize_method_rows, wilson_interval
+from crome_identification.evaluation import (
+    EvaluationRow,
+    product_truth_allows_public_point,
+    summarize_method_rows,
+    wilson_interval,
+)
 from crome_identification.evaluation.splits import split_trajectory_ids
 from crome_identification.seeding import make_seed_bundle
 
@@ -135,6 +140,16 @@ def _expected_status(cell: CellSpec) -> str:
     if cell.perturbation.kind == "baseline_error":
         return DecisionStatus.SET_ESTIMABLE.value
     return DecisionStatus.INCONCLUSIVE.value
+
+
+def _expected_product_status(cell: CellSpec) -> tuple[str, str]:
+    if cell.support_mass > 0:
+        return "UNKNOWN", "POINT_AT_TAU"
+    if cell.perturbation.kind == "clean":
+        return "NONIDENTIFIED", "INCONCLUSIVE"
+    if cell.perturbation.kind == "baseline_error":
+        return "NONIDENTIFIED", "SET"
+    return "UNKNOWN", "INCONCLUSIVE"
 
 
 def _temporal_certificate(cfg: dict[str, Any], cell: CellSpec, data,
@@ -448,6 +463,7 @@ def _run_cell(cfg: dict[str, Any], cell: CellSpec, rep: int, mode: str,
         rank=int(cfg["parameter_dim"]),
     )
     radius = 1.96 * float(cfg["outcome_noise_sigma"])
+    expected_structural, expected_operational = _expected_product_status(cell)
     return {
         "rep": rep,
         "cell_key": cell.key,
@@ -455,9 +471,13 @@ def _run_cell(cfg: dict[str, Any], cell: CellSpec, rep: int, mode: str,
         "perturbation": cell.perturbation.kind,
         "level": cell.perturbation.level,
         "expected_status": _expected_status(cell),
+        "expected_structural_status": expected_structural,
+        "expected_operational_status": expected_operational,
         "fixture_kind": "oracle_informed_contract_fixture",
         "evaluation_only": {
             "expected_status": _expected_status(cell),
+            "expected_structural_status": expected_structural,
+            "expected_operational_status": expected_operational,
             "support_mass": cell.support_mass,
             "perturbation_label": cell.perturbation.kind,
         },
@@ -505,13 +525,20 @@ def _method_rows(records: list[dict[str, Any]], method: str) -> list[EvaluationR
             true_target=float(row["true_target"]),
             runtime_seconds=float(row["methods"][method]["runtime_seconds"]),
             failed=bool(row["methods"][method]["failed"]),
+            expected_structural_status=row["expected_structural_status"],
+            expected_operational_status=row["expected_operational_status"],
         )
         for row in records
     ]
 
 
 def _gate(cfg: dict[str, Any], records: list[dict[str, Any]]) -> dict[str, Any]:
-    nonpoint = [row for row in records if row["expected_status"] != DecisionStatus.POINT_ESTIMABLE.value]
+    nonpoint = [
+        row for row in records
+        if not product_truth_allows_public_point(
+            row["expected_structural_status"], row["expected_operational_status"]
+        )
+    ]
     false_points = sum(
         row["methods"]["crome_optimal"]["status"]
         == DecisionStatus.POINT_ESTIMABLE.value
@@ -583,7 +610,9 @@ def _point_metrics(records: list[dict[str, Any]], method: str, tolerance: float)
     eligible = [
         row
         for row in records
-        if row["expected_status"] == DecisionStatus.POINT_ESTIMABLE.value
+        if product_truth_allows_public_point(
+            row["expected_structural_status"], row["expected_operational_status"]
+        )
     ]
     outputs = [
         row
@@ -737,7 +766,9 @@ def _story_metrics(
     nonpoint = [
         row
         for row in records
-        if row["expected_status"] != DecisionStatus.POINT_ESTIMABLE.value
+        if not product_truth_allows_public_point(
+            row["expected_structural_status"], row["expected_operational_status"]
+        )
     ]
     matched_false = sum(
         row["methods"]["matched_uncertainty"]["status"]
@@ -784,6 +815,8 @@ def _source_rows(records: list[dict[str, Any]], config_hash: str):
                 "rep": row["rep"], "support_mass": row["support_mass"],
                 "perturbation": row["perturbation"], "level": row["level"],
                 "method": method, "expected_status": row["expected_status"],
+                "expected_structural_status": row["expected_structural_status"],
+                "expected_operational_status": row["expected_operational_status"],
                 "predicted_status": output["status"], "true_target": row["true_target"],
                 "structural_status": output.get("structural_status"),
                 "operational_status": output.get("operational_status"),
@@ -799,11 +832,7 @@ def _write_csv(rows, path: Path) -> None:
     rows = list(rows)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(
-            handle,
-            fieldnames=list(rows[0]),
-            lineterminator="\n",
-        )
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
         writer.writeheader(); writer.writerows(rows)
 
 

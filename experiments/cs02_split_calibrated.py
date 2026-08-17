@@ -39,6 +39,7 @@ from crome_identification.certification import (
 )
 from crome_identification.evaluation import (
     EvaluationRow,
+    product_truth_allows_public_point,
     split_trajectory_ids,
     summarize_method_rows,
 )
@@ -58,6 +59,12 @@ _REGIMES = (
     ("structural_target_null", DecisionStatus.NONRECOVERABLE),
     ("sparse_near_zero", DecisionStatus.INCONCLUSIVE),
 )
+_EXPECTED_PRODUCT = {
+    "strong_support_full_rank": ("UNKNOWN", "POINT_AT_TAU"),
+    "gap_estimated_design": ("UNKNOWN", "SET"),
+    "structural_target_null": ("NONIDENTIFIED", "INCONCLUSIVE"),
+    "sparse_near_zero": ("UNKNOWN", "INCONCLUSIVE"),
+}
 _METHODS = ("crome", "naive_boundary", "ridge", "tsvd")
 
 
@@ -461,9 +468,12 @@ def _run_regime(
         "ridge": _baseline_output(ridge, ridge_interval),
         "tsvd": _baseline_output(tsvd, tsvd_interval),
     }
+    expected_structural, expected_operational = _EXPECTED_PRODUCT[regime]
     return {
         "regime": regime,
         "expected_status": expected_status.value,
+        "expected_structural_status": expected_structural,
+        "expected_operational_status": expected_operational,
         "target_definition": "C @ theta",
         "target_C": data.target.tolist(),
         "true_target": data.true_target,
@@ -518,6 +528,8 @@ def _evaluation_rows(records: list[dict[str, Any]], method: str) -> list[Evaluat
                     true_target=float(regime["true_target"]),
                     runtime_seconds=float(output.get("runtime_seconds", 0.0)),
                     failed=bool(output.get("failed", False)),
+                    expected_structural_status=regime["expected_structural_status"],
+                    expected_operational_status=regime["expected_operational_status"],
                 )
             )
     return rows
@@ -628,13 +640,18 @@ def _source_rows(records: list[dict[str, Any]], config_hash: str) -> list[dict[s
                         "regime": regime["regime"],
                         "method": method,
                         "expected_status": regime["expected_status"],
+                        "expected_structural_status": regime["expected_structural_status"],
+                        "expected_operational_status": regime["expected_operational_status"],
                         "predicted_status": output["status"],
                         "true_target": regime["true_target"],
                         "point_estimate": output.get("point_estimate"),
                         "interval_lower": interval[0] if interval is not None else None,
                         "interval_upper": interval[1] if interval is not None else None,
                         "false_point": int(
-                            regime["expected_status"] != DecisionStatus.POINT_ESTIMABLE.value
+                            not product_truth_allows_public_point(
+                                regime["expected_structural_status"],
+                                regime["expected_operational_status"],
+                            )
                             and output["status"] == DecisionStatus.POINT_ESTIMABLE.value
                         ),
                         "abstained": int(output["status"] == DecisionStatus.INCONCLUSIVE.value),
@@ -649,11 +666,7 @@ def _source_rows(records: list[dict[str, Any]], config_hash: str) -> list[dict[s
 def _write_source_csv(rows: list[dict[str, Any]], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(
-            handle,
-            fieldnames=list(rows[0]),
-            lineterminator="\n",
-        )
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
 

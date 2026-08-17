@@ -9,6 +9,14 @@
       "png": {
         "name": "figure_00_evidence_certificate_route.png",
         "sha256": "280bad03d225e09140c6157b6f14911a87503857b78db9338940f41081578a32"
+      },
+      "svg": {
+        "name": "figure_00_evidence_certificate_route.svg",
+        "sha256": "93b4770a182a8a48c15a97cb7c03dc051be07a4e5da13802f0ec272797053647"
+      },
+      "tiff": {
+        "name": "figure_00_evidence_certificate_route.tiff",
+        "sha256": "b7aed3eb91cbdb7c8a0ac7142b85d15e8ba3d4fe3a85a210610ae5c1488f3341"
       }
     },
     "rq1": {
@@ -19,6 +27,14 @@
       "png": {
         "name": "figure_01_certificate_optimization.png",
         "sha256": "5d4ec00cf3d2276616a054bb9136f63e39423e2cf9b8dd2f67c8d39016ef5ce1"
+      },
+      "svg": {
+        "name": "figure_01_certificate_optimization.svg",
+        "sha256": "00400cd861b41f7d36dd58b982cb1ab750f7541fcdcb83e055044aa53659ea48"
+      },
+      "tiff": {
+        "name": "figure_01_certificate_optimization.tiff",
+        "sha256": "a0ed73bc45174cbd1ff937fcc7c80132eccb94ad62aaca489d47da5c620ecf33"
       }
     },
     "rq2": {
@@ -29,6 +45,14 @@
       "png": {
         "name": "figure_02_matched_structural_safety.png",
         "sha256": "05b9e36281184ba1c633d6758dc1278ee9c6a4cbb6cbb1dab2a7666b74729ab8"
+      },
+      "svg": {
+        "name": "figure_02_matched_structural_safety.svg",
+        "sha256": "c75c309bc070a2184f89e57419ad4a7d9236439a11a01b54c42de4c05203fd57"
+      },
+      "tiff": {
+        "name": "figure_02_matched_structural_safety.tiff",
+        "sha256": "b4e5a60a3902d89ab8399c8b8007de5c1407bc0e6f1e32a6ec207c1ec691e254"
       }
     },
     "rq3": {
@@ -39,6 +63,14 @@
       "png": {
         "name": "figure_03_routing_ablation.png",
         "sha256": "0b98543d1a7479d3f38fcd1ddca6a58c706a44ede1fbc8359136f80a6feb0456"
+      },
+      "svg": {
+        "name": "figure_03_routing_ablation.svg",
+        "sha256": "9953b2977fde34499f1332616913b9ac47f0d40a0d20f074aa7961dc06494963"
+      },
+      "tiff": {
+        "name": "figure_03_routing_ablation.tiff",
+        "sha256": "24f2110fb637ec6e7e412877cf9eb20b248e6c6736ba091b279b5ef9ece17123"
       }
     }
   },
@@ -47,7 +79,7 @@
     "sha256": "080bd86bc0f0a1e0403550134b1ebddb7965dc890efae9be5ccc2b167e6688f9"
   },
   "source_summaries": {
-    "cs03_main.json": "06166e27307efde9d1d18e09ab968ca82e14f6a8a7f60b821e1db19bb3596efc",
+    "cs03_main.json": "6086196ab433a63f2c116e405e366751c9aa993455ecc7b4d9e8a1ec1561e148",
     "cs06_main.json": "95eecdee4a3b4e7c40d85946ab5b55372dd4322ca5dfe9f45bc49bab36efa106"
   }
 }

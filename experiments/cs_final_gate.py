@@ -46,6 +46,7 @@ def _repository_release_paths(root: Path) -> tuple[Path, ...]:
         "LICENSE",
         "README.md",
         "pyproject.toml",
+        "requirements-jss-lock.txt",
         "src/crome_identification/**/*.py",
         "experiments/**/*.py",
         "figures/__init__.py",
@@ -146,7 +147,10 @@ def _figure_contract(root: Path, revision_root: Path) -> dict[str, Any]:
     source_ok = manifest.get("source_summaries") == source_hashes
     file_rows = []
     for figure in manifest.get("figures", {}).values():
-        for suffix, metadata in figure.items():
+        for suffix in ("pdf", "png"):
+            metadata = figure.get(suffix)
+            if metadata is None:
+                continue
             result_path = root / "results/figures/cs" / metadata["name"]
             observed = _sha256(result_path) if result_path.exists() else None
             row = {

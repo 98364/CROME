@@ -8,12 +8,16 @@ import gc
 import hashlib
 import json
 import math
+import os
+import platform
 from pathlib import Path
+import subprocess
 from time import perf_counter
 import tracemalloc
 from typing import Any
 
 import numpy as np
+import scipy
 
 from crome_identification.certification import certify_overlap_target, decide_target
 from crome_identification.seeding import make_seed_bundle
@@ -178,6 +182,70 @@ def _hash_json(value: Any) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest()
 
 
+def _sysctl_value(name: str) -> str:
+    try:
+        completed = subprocess.run(
+            ["sysctl", "-n", name],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+    except (FileNotFoundError, subprocess.CalledProcessError):
+        return "unavailable"
+    return completed.stdout.strip() or "unavailable"
+
+
+def _physical_memory_bytes() -> int:
+    if platform.system() == "Darwin":
+        value = _sysctl_value("hw.memsize")
+        if value.isdigit():
+            return int(value)
+    try:
+        return int(os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES"))
+    except (AttributeError, OSError, ValueError):
+        return 0
+
+
+def _runtime_environment() -> dict[str, Any]:
+    config = np.show_config(mode="dicts")
+    dependencies = config.get("Build Dependencies", {})
+    project_root = Path(__file__).resolve().parents[1]
+    lock_path = project_root / "requirements-jss-lock.txt"
+    thread_names = (
+        "OMP_NUM_THREADS",
+        "OPENBLAS_NUM_THREADS",
+        "MKL_NUM_THREADS",
+        "VECLIB_MAXIMUM_THREADS",
+        "NUMEXPR_NUM_THREADS",
+    )
+    return {
+        "python": platform.python_version(),
+        "numpy": np.__version__,
+        "scipy": scipy.__version__,
+        "operating_system": {
+            "system": platform.system(),
+            "release": platform.release(),
+            "version": platform.version(),
+        },
+        "architecture": platform.machine(),
+        "hardware_model": _sysctl_value("hw.model") if platform.system() == "Darwin" else "unavailable",
+        "processor": _sysctl_value("machdep.cpu.brand_string") if platform.system() == "Darwin" else platform.processor(),
+        "cpu_count": int(os.cpu_count() or 0),
+        "physical_memory_bytes": _physical_memory_bytes(),
+        "linear_algebra": {
+            "blas": dependencies.get("blas", {}).get("name", "unknown"),
+            "blas_version": dependencies.get("blas", {}).get("version", "unknown"),
+            "lapack": dependencies.get("lapack", {}).get("name", "unknown"),
+            "lapack_version": dependencies.get("lapack", {}).get("version", "unknown"),
+        },
+        "thread_settings": {name: os.environ.get(name, "unset") for name in thread_names},
+        "dependency_lock": {
+            "path": lock_path.name,
+            "sha256": hashlib.sha256(lock_path.read_bytes()).hexdigest(),
+        },
+    }
+
+
 def _write_csv(records: list[dict[str, Any]], config_hash: str, path: Path):
     rows = [{
         "rep": row["rep"], "n_trajectories": row["n_trajectories"],
@@ -193,13 +261,7 @@ def _write_csv(records: list[dict[str, Any]], config_hash: str, path: Path):
     } for row in records]
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(
-            handle,
-            fieldnames=list(rows[0]),
-            lineterminator="\n",
-        )
-        writer.writeheader()
-        writer.writerows(rows)
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0])); writer.writeheader(); writer.writerows(rows)
 
 
 def run(mode: str = "smoke", outdir: Path | None = None) -> dict[str, Any]:
@@ -217,6 +279,7 @@ def run(mode: str = "smoke", outdir: Path | None = None) -> dict[str, Any]:
         "experiment": "cs05_scaling", "mode": mode, "master_seed": int(cfg["master_seed"]),
         "config_sha256": config_hash, "n_reps": n_reps, "n_cells": len(specs),
         "measurement_protocol": "single process; one warm-up excluded; perf_counter; tracemalloc peak plus explicit input bytes",
+        "runtime_environment": _runtime_environment(),
         "empirical_slopes": slopes, "gate": _gate(cfg, records, n_reps * len(specs)),
         "artifact_audit": {"unique_keys": len(keys) == len(set(keys)), "strict_json": True},
         "config": cfg, "replication_records": records,
