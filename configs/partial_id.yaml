@@ -1,0 +1,22 @@
+# Experiment 4: anchored Hölder set + confidence region
+name: partial_id
+mode: smoke
+
+L: 1.0
+alpha: 1.0
+eta: 1.0
+level: 0.95
+mc_confidence_level: 0.95
+n_bootstrap: 999
+master_seed: 20260806
+
+fixed_lags: [0.1, 0.25, 0.5, 0.75, 1.0]
+n_traj_smoke: 50
+n_traj_dev: 200
+n_traj_main: 500
+n_reps_smoke: 20
+n_reps_dev: 100
+n_reps_main: 500
+
+alpha_grid: [0.5, 0.75, 1.0]
+L_grid: [0.5, 1.0, 2.0]

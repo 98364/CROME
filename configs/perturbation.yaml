@@ -1,0 +1,26 @@
+# Experiment 7: baseline misspec + timestamp error
+name: perturbation
+mode: smoke
+
+Delta: 1.0
+T: 20.0
+# Persistent response components remain active throughout the observation
+# horizon; using a shorter window creates structural omitted-response bias.
+Qresp: 20.0
+n: 50
+d_tau_frac: [0.0, 0.05, 0.10, 0.25]
+master_seed: 20260806
+n_reps_smoke: 3
+n_reps_dev: 50
+n_reps_main: 100
+
+baseline_modes:
+  - oracle
+  - correct_mean
+  - omit_V
+  - wrong_trend
+
+timestamp_modes:
+  - exact
+  - jitter
+  - rounded

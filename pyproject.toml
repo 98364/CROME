@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crome-identification"
+version = "0.1.0"
+description = "Identification of marked-event response functionals under coarsened and overlapping observation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "CROME contributors" }]
+dependencies = [
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "pyyaml>=6.0",
+  "pandas>=2.2",
+  "openpyxl>=3.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4",
+  "pytest-cov>=4.1",
+]
+plot = [
+  "matplotlib>=3.7",
+]
+
+[project.scripts]
+crome-exp = "crome_identification.cli:main"
+crome-audit-cs02 = "crome_identification.evaluation.artifact_audit:main"
+
+[tool.setuptools]
+packages = [
+  "crome_identification",
+  "crome_identification.baselines",
+  "crome_identification.benchmarks",
+  "crome_identification.certification",
+  "crome_identification.evaluation",
+  "crome_identification.identification",
+  "crome_identification.inference",
+  "crome_identification.interventions",
+  "crome_identification.inverse",
+  "crome_identification.observation",
+  "crome_identification.processes",
+  "crome_identification.responses",
+  "experiments",
+]
+package-dir = { "" = "src", "experiments" = "experiments" }
+
+[tool.setuptools.data-files]
+configs = ["configs/*.yaml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+markers = [
+  "slow: stochastic integration / large Monte Carlo tests",
+  "smoke: fast smoke checks used in CI",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

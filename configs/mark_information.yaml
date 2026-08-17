@@ -1,0 +1,21 @@
+name: mark_information
+mode: smoke
+
+Delta: 1.0
+T: 8.0
+Qresp: 8.0
+L_basis: 2
+sigma_meas: 0.05
+master_seed: 20260806
+svd_tol: 1.0e-10
+
+theta_true: [1.0, 0.6, 0.2, 0.5, 0.3, 0.1]
+scenarios_smoke: [strong_excitation, simultaneous]
+scenarios_dev: [weak_excitation, strong_excitation, near_collinearity, simultaneous]
+scenarios_main: [weak_excitation, strong_excitation, near_collinearity, simultaneous]
+n_traj_smoke: 20
+n_traj_dev: 50
+n_traj_main: 100
+n_reps_smoke: 20
+n_reps_dev: 100
+n_reps_main: 300

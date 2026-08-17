@@ -1,0 +1,43 @@
+{
+  "raw_rows": 1067371,
+  "exact_duplicate_rows": 34335,
+  "unique_rows": 1033036,
+  "missing_customer_rows": 235151,
+  "aggregated_invoices_before_customer_filter": 44941,
+  "processed_events": 37939,
+  "customers_before_min_event_filter": 5942,
+  "eligible_customers": 2505,
+  "min_customer_events": 5,
+  "quantity_threshold": 20.0,
+  "cancellation_events": 7139,
+  "mark_counts": {
+    "0": 7139,
+    "1": 2536,
+    "2": 28264
+  },
+  "same_customer_timestamp_extra_events": 299,
+  "aggregation_rule": "customer_id + invoice + invoice_date",
+  "mark_rule": "0=cancellation; 1=purchase_abs_quantity<=threshold; 2=larger_purchase",
+  "timestamp_timezone": "source-naive; no timezone conversion",
+  "source_url": "https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip",
+  "doi": "https://doi.org/10.24432/C5CG6D",
+  "license": "CC BY 4.0",
+  "retrieved": "2026-08-17",
+  "archive_sha256": "572e36277c2390fbfde10664750731e0a86f55e33470d91919085f0408e67bfb",
+  "workbook_sha256": "bcbe73b35f5b7babf197fb0cb983a11f5d9ff929078d4aa53d171b1f2df2e980",
+  "workbook_file": "online_retail_II.xlsx",
+  "sheet_names": [
+    "Year 2009-2010",
+    "Year 2010-2011"
+  ],
+  "selection_rule": "all customers with nonmissing ID and at least min_customer_events",
+  "outcome_usage": "none; original outcomes/prices are not benchmark responses",
+  "processed_schema": [
+    "trajectory_index",
+    "time_of_day_minutes",
+    "mark"
+  ],
+  "identifier_policy": "source customer and invoice identifiers are not retained",
+  "timing_policy": "calendar dates are removed; only minute of day is retained",
+  "processed_npz_sha256": "877ca0034e9092cdd4a44e864c8b61f88716a12f2bab562490046738edfc93a4"
+}

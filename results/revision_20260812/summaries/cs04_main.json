@@ -1,0 +1,452 @@
+{
+  "experiment": "cs04_online_retail",
+  "mode": "main",
+  "master_seed": 20260811,
+  "fixture_kind": "oracle_informed_contract_fixture",
+  "config_sha256": "5aa4244363ebb317d4d07237a51357819655d54eead8ce2fe97c0ff39b12d689",
+  "n_reps": 120,
+  "n_regimes": 4,
+  "benchmark_semantics": "real event timing + controlled coarsening; synthetic outcomes; no causal claim",
+  "data_profile": {
+    "raw_rows": 1067371,
+    "exact_duplicate_rows": 34335,
+    "unique_rows": 1033036,
+    "missing_customer_rows": 235151,
+    "aggregated_invoices_before_customer_filter": 44941,
+    "processed_events": 37939,
+    "customers_before_min_event_filter": 5942,
+    "eligible_customers": 2505,
+    "min_customer_events": 5,
+    "quantity_threshold": 20.0,
+    "cancellation_events": 7139,
+    "mark_counts": {
+      "0": 7139,
+      "1": 2536,
+      "2": 28264
+    },
+    "same_customer_timestamp_extra_events": 299,
+    "aggregation_rule": "customer_id + invoice + invoice_date",
+    "mark_rule": "0=cancellation; 1=purchase_abs_quantity<=threshold; 2=larger_purchase",
+    "timestamp_timezone": "source-naive; no timezone conversion",
+    "source_url": "https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip",
+    "doi": "https://doi.org/10.24432/C5CG6D",
+    "license": "CC BY 4.0",
+    "retrieved": "2026-08-17",
+    "archive_sha256": "572e36277c2390fbfde10664750731e0a86f55e33470d91919085f0408e67bfb",
+    "workbook_sha256": "bcbe73b35f5b7babf197fb0cb983a11f5d9ff929078d4aa53d171b1f2df2e980",
+    "workbook_file": "online_retail_II.xlsx",
+    "sheet_names": [
+      "Year 2009-2010",
+      "Year 2010-2011"
+    ],
+    "selection_rule": "all customers with nonmissing ID and at least min_customer_events",
+    "outcome_usage": "none; original outcomes/prices are not benchmark responses",
+    "processed_schema": [
+      "trajectory_index",
+      "time_of_day_minutes",
+      "mark"
+    ],
+    "identifier_policy": "source customer and invoice identifiers are not retained",
+    "timing_policy": "calendar dates are removed; only minute of day is retained",
+    "processed_npz_sha256": "877ca0034e9092cdd4a44e864c8b61f88716a12f2bab562490046738edfc93a4"
+  },
+  "processed_data_sha256": "877ca0034e9092cdd4a44e864c8b61f88716a12f2bab562490046738edfc93a4",
+  "methods": {
+    "crome": {
+      "n_total": 480,
+      "status_accuracy": 0.75,
+      "confusion": {
+        "POINT_ESTIMABLE": {
+          "POINT_ESTIMABLE": 120
+        },
+        "SET_ESTIMABLE": {
+          "NONRECOVERABLE": 120
+        },
+        "NONRECOVERABLE": {
+          "NONRECOVERABLE": 120
+        },
+        "INCONCLUSIVE": {
+          "INCONCLUSIVE": 120
+        }
+      },
+      "false_point_count": 0,
+      "nonpoint_oracle_count": 360,
+      "false_point_rate": 0.0,
+      "false_point_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.0,
+        "upper": 0.0105580568886935
+      },
+      "abstention_count": 120,
+      "abstention_rate": 0.25,
+      "abstention_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.2133507472842675,
+        "upper": 0.29061900225937143
+      },
+      "failure_count": 0,
+      "point_oracle_count": 120,
+      "point_coverage_count": 120,
+      "point_coverage_rate": 1.0,
+      "point_coverage_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9689808335812966,
+        "upper": 1.0
+      },
+      "target_rmse_conditional": 0.006441169674702103,
+      "target_rmse_unconditional": 0.006441169674702103,
+      "mean_interval_width": 0.2217760565223801,
+      "runtime_seconds": {
+        "mean": 0.04622217127302217,
+        "p95": 0.10111565209826949
+      }
+    },
+    "naive_boundary": {
+      "n_total": 480,
+      "status_accuracy": 0.25,
+      "confusion": {
+        "POINT_ESTIMABLE": {
+          "POINT_ESTIMABLE": 120
+        },
+        "SET_ESTIMABLE": {
+          "INCONCLUSIVE": 120
+        },
+        "NONRECOVERABLE": {
+          "POINT_ESTIMABLE": 120
+        },
+        "INCONCLUSIVE": {
+          "POINT_ESTIMABLE": 120
+        }
+      },
+      "false_point_count": 240,
+      "nonpoint_oracle_count": 360,
+      "false_point_rate": 0.6666666666666666,
+      "false_point_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.6164370892983055,
+        "upper": 0.7133768917387966
+      },
+      "abstention_count": 120,
+      "abstention_rate": 0.25,
+      "abstention_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.2133507472842675,
+        "upper": 0.29061900225937143
+      },
+      "failure_count": 120,
+      "point_oracle_count": 120,
+      "point_coverage_count": 120,
+      "point_coverage_rate": 1.0,
+      "point_coverage_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9689808335812966,
+        "upper": 1.0
+      },
+      "target_rmse_conditional": 0.0025505028338110845,
+      "target_rmse_unconditional": 0.0025505028338110845,
+      "mean_interval_width": 0.11759999999999995,
+      "runtime_seconds": {
+        "mean": 5.857078336551543e-05,
+        "p95": 9.456694970140232e-05
+      }
+    },
+    "ridge": {
+      "n_total": 480,
+      "status_accuracy": 0.25,
+      "confusion": {
+        "POINT_ESTIMABLE": {
+          "POINT_ESTIMABLE": 120
+        },
+        "SET_ESTIMABLE": {
+          "POINT_ESTIMABLE": 120
+        },
+        "NONRECOVERABLE": {
+          "POINT_ESTIMABLE": 120
+        },
+        "INCONCLUSIVE": {
+          "POINT_ESTIMABLE": 120
+        }
+      },
+      "false_point_count": 360,
+      "nonpoint_oracle_count": 360,
+      "false_point_rate": 1.0,
+      "false_point_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9894419431113063,
+        "upper": 0.9999999999999999
+      },
+      "abstention_count": 0,
+      "abstention_rate": 0.0,
+      "abstention_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 8.673617379884035e-19,
+        "upper": 0.00793949908727793
+      },
+      "failure_count": 0,
+      "point_oracle_count": 120,
+      "point_coverage_count": 120,
+      "point_coverage_rate": 1.0,
+      "point_coverage_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9689808335812966,
+        "upper": 1.0
+      },
+      "target_rmse_conditional": 0.0046383042339303866,
+      "target_rmse_unconditional": 0.0046383042339303866,
+      "mean_interval_width": 0.11759999999999995,
+      "runtime_seconds": {
+        "mean": 1.8539791540206352e-05,
+        "p95": 2.704199869185686e-05
+      }
+    },
+    "tsvd": {
+      "n_total": 480,
+      "status_accuracy": 0.25,
+      "confusion": {
+        "POINT_ESTIMABLE": {
+          "POINT_ESTIMABLE": 120
+        },
+        "SET_ESTIMABLE": {
+          "POINT_ESTIMABLE": 120
+        },
+        "NONRECOVERABLE": {
+          "POINT_ESTIMABLE": 120
+        },
+        "INCONCLUSIVE": {
+          "POINT_ESTIMABLE": 120
+        }
+      },
+      "false_point_count": 360,
+      "nonpoint_oracle_count": 360,
+      "false_point_rate": 1.0,
+      "false_point_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9894419431113063,
+        "upper": 0.9999999999999999
+      },
+      "abstention_count": 0,
+      "abstention_rate": 0.0,
+      "abstention_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 8.673617379884035e-19,
+        "upper": 0.00793949908727793
+      },
+      "failure_count": 0,
+      "point_oracle_count": 120,
+      "point_coverage_count": 120,
+      "point_coverage_rate": 1.0,
+      "point_coverage_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9689808335812966,
+        "upper": 1.0
+      },
+      "target_rmse_conditional": 0.004675799858507673,
+      "target_rmse_unconditional": 0.004675799858507673,
+      "mean_interval_width": 0.11759999999999995,
+      "runtime_seconds": {
+        "mean": 3.368882720072482e-05,
+        "p95": 4.3339252260921055e-05
+      }
+    }
+  },
+  "gate": {
+    "passed": true,
+    "checks": {
+      "all_eligible_customers": {
+        "passed": true,
+        "observed": 2505,
+        "required": 2505
+      },
+      "product_status_population": {
+        "passed": true,
+        "observed": {
+          "UNKNOWN_x_POINT_AT_TAU": 120,
+          "NONIDENTIFIED_x_SET": 120,
+          "NONIDENTIFIED_x_INCONCLUSIVE": 120,
+          "UNKNOWN_x_INCONCLUSIVE": 120
+        },
+        "required": 100
+      },
+      "false_point_upper_bound": {
+        "passed": true,
+        "observed": 0.0105580568886935,
+        "required": 0.025
+      },
+      "point_coverage_lower_bound": {
+        "passed": true,
+        "observed": 0.9689808335812966,
+        "required": 0.9
+      },
+      "set_coverage_lower_bound": {
+        "passed": true,
+        "observed": 0.9689808335812966,
+        "required": 0.9
+      },
+      "split_integrity": {
+        "passed": true,
+        "observed": 480,
+        "required": 480
+      }
+    },
+    "false_point_count": 0,
+    "nonpoint_count": 360,
+    "point_coverage": {
+      "covered": 120,
+      "total": 120,
+      "interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9689808335812966,
+        "upper": 1.0
+      }
+    },
+    "set_coverage": {
+      "covered": 120,
+      "total": 120,
+      "interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9689808335812966,
+        "upper": 1.0
+      }
+    }
+  },
+  "artifact_audit": {
+    "data_hashes_attached": true,
+    "unique_keys": true,
+    "strict_json": true
+  },
+  "config": {
+    "n": 500,
+    "T": 20.0,
+    "delta": 0.01,
+    "t0": 5.0,
+    "Q": 5.0,
+    "Qresp": 20.0,
+    "Delta": 1.0,
+    "C": 3,
+    "kappa_X": 0.5,
+    "mu_X": 0.0,
+    "sigma_X": 0.4,
+    "kappa_V": 0.8,
+    "mu_V": 0.0,
+    "sigma_V": 0.25,
+    "beta_X": 0.5,
+    "beta_V": 0.3,
+    "kappa_U": 1.0,
+    "sigma_U": 0.2,
+    "process_noise_sigma": 0.0,
+    "sigma_meas": 0.1,
+    "lambda0": [
+      0.1,
+      0.08,
+      0.06
+    ],
+    "alpha_x": [
+      0.35,
+      -0.25,
+      0.2
+    ],
+    "alpha_v": [
+      0.2,
+      0.3,
+      -0.2
+    ],
+    "alpha_y": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "alpha_n": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rho_window": [
+      5.0,
+      10.0
+    ],
+    "rho_type": 1,
+    "rho": 1.5,
+    "J": [
+      1.0,
+      0.5,
+      -0.7
+    ],
+    "a1": [
+      0.6,
+      0.3,
+      -0.4
+    ],
+    "a2": [
+      0.2,
+      0.1,
+      -0.1
+    ],
+    "a3": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "beta_kernel": [
+      1.0,
+      0.3,
+      0.8
+    ],
+    "L_holder": 1.0,
+    "alpha_holder": 1.0,
+    "eta": 1.0,
+    "master_seed": 20260811,
+    "n_bootstrap": 999,
+    "n_reps_smoke": 2,
+    "n_reps_dev": 20,
+    "n_reps_main": 120,
+    "svd_tol": 1e-10,
+    "split_ratios": [
+      0.4,
+      0.3,
+      0.3
+    ],
+    "regimes": [
+      "fine_4h",
+      "daily_gap",
+      "target_mark_collapse",
+      "rounded_hidden_time"
+    ],
+    "parameter_dim": 3,
+    "outcome_noise_sigma": 0.03,
+    "trace_noise_sigma": 0.03,
+    "temporal_slope": 0.05,
+    "holder_L": 0.3,
+    "holder_alpha": 1.0,
+    "theta_radius": 1.2,
+    "row_error_bound": 2.0,
+    "component_delta": 0.02,
+    "scientific_tolerance": 0.1,
+    "ridge_lambda": 0.01,
+    "mc_confidence_level": 0.95,
+    "gate_min_status_count": 100,
+    "gate_max_false_point_upper": 0.025,
+    "gate_min_point_coverage_lower": 0.9,
+    "gate_min_set_coverage_lower": 0.9,
+    "processed_data": "data/processed/online_retail_ii_events.npz",
+    "data_profile": "data/processed/online_retail_ii_profile.json",
+    "mode": "main"
+  },
+  "runtime_versions": {
+    "python": "3.14.6",
+    "numpy": "2.5.1"
+  }
+}

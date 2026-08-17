@@ -1,0 +1,19 @@
+# Experiments 5–6: mark-aware overlap + null space
+name: overlap
+mode: smoke
+
+C: 3
+L_basis: 2
+# The kernel contains a permanent component, so the inverse design must cover
+# the complete observation horizon rather than truncating old event effects.
+Qresp: 20.0
+Delta: 1.0
+T: 20.0
+n: 50
+master_seed: 20260806
+svd_tol: 1.0e-10
+ridge_lam: 0.01
+
+n_reps_smoke: 5
+n_reps_dev: 100
+n_reps_main: 200

@@ -1,0 +1,40 @@
+master_seed: 20260811
+n_reps_smoke: 2
+n_reps_dev: 10
+n_reps_main: 40
+n_utility_reps_smoke: 8
+n_utility_reps_dev: 40
+n_utility_reps_main: 200
+n_trajectories_smoke: 600
+n_trajectories_dev: 900
+n_trajectories_main: 1200
+split_ratios: [0.4, 0.3, 0.3]
+parameter_dim: 3
+support_masses: [0.0, 0.1, 0.25, 0.5, 0.8, 1.0]
+support_bandwidth: 0.1
+support_gap: 0.35
+perturbation_levels:
+  clean: [0.0]
+  timestamp_jitter: [0.01, 0.05, 0.15]
+  rounding: [0.02, 0.1, 0.3]
+  basis_error: [0.01, 0.05, 0.15]
+  mark_noise: [0.02, 0.1, 0.3]
+  baseline_error: [0.01, 0.05, 0.15]
+outcome_noise_sigma: 0.03
+trace_noise_sigma: 0.03
+temporal_slope: 0.05
+theta_radius: 1.5
+row_error_bound: 3.0
+holder_L: 0.3
+holder_alpha: 1.0
+component_delta: 0.02
+global_delta: 0.10
+scientific_tolerance: 0.12
+prior_only_shrinkage_threshold: 0.01
+utility_scientific_tolerance: 1.10
+ridge_lambda: 0.01
+mc_confidence_level: 0.95
+gate_max_false_point_upper: 0.025
+gate_min_supported_coverage_lower: 0.90
+gate_supported_mass: 0.8
+gate_min_statuses: 4

@@ -1,0 +1,32 @@
+# Experiment 1: oracle likelihood-ratio sanity check
+name: causal_weighting
+mode: smoke  # smoke | dev | main
+
+n: 100
+T: 20.0
+delta: 0.01
+t0: 5.0
+Q: 5.0
+Delta: 1.0
+C: 3
+master_seed: 20260806
+mc_confidence_level: 0.95
+
+lambda0: [0.10, 0.08, 0.06]
+alpha_x: [0.35, -0.25, 0.20]
+alpha_v: [0.20, 0.30, -0.20]
+rho_type: 1
+rho: 1.5
+rho_window: [5.0, 10.0]
+
+J: [1.0, 0.5, -0.7]
+a1: [0.6, 0.3, -0.4]
+a2: [0.2, 0.1, -0.1]
+a3: [0.0, 0.0, 0.0]
+beta_kernel: [1.0, 0.3, 0.8]
+
+sigma_meas: 0.1
+n_reps_smoke: 20
+n_reps_dev: 100
+n_reps_main: 500
+ess_warn_threshold: 0.10

@@ -1,0 +1,426 @@
+{
+  "experiment": "cs02_split_calibrated",
+  "mode": "main",
+  "master_seed": 20260811,
+  "config_sha256": "b884d254c7264a2e6d60a30191088fdaf4c31ec67d3fe522e10de3936d90258a",
+  "n_reps": 500,
+  "n_trajectories_per_regime": 1200,
+  "n_regimes": 4,
+  "target_definition": "scalar C @ theta, fixed before each regime fit",
+  "certificate_scope": "assumption_conditional except structural exact-null fixture",
+  "methods": {
+    "crome": {
+      "n_total": 2000,
+      "status_accuracy": 1.0,
+      "confusion": {
+        "POINT_ESTIMABLE": {
+          "POINT_ESTIMABLE": 500
+        },
+        "SET_ESTIMABLE": {
+          "SET_ESTIMABLE": 500
+        },
+        "NONRECOVERABLE": {
+          "NONRECOVERABLE": 500
+        },
+        "INCONCLUSIVE": {
+          "INCONCLUSIVE": 500
+        }
+      },
+      "false_point_count": 0,
+      "nonpoint_oracle_count": 1500,
+      "false_point_rate": 0.0,
+      "false_point_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.0,
+        "upper": 0.0025544307201814864
+      },
+      "abstention_count": 500,
+      "abstention_rate": 0.25,
+      "abstention_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.23151413442481875,
+        "upper": 0.2694443892158077
+      },
+      "failure_count": 0,
+      "point_oracle_count": 500,
+      "point_coverage_count": 500,
+      "point_coverage_rate": 1.0,
+      "point_coverage_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9923756595384479,
+        "upper": 1.0
+      },
+      "target_rmse_conditional": 0.0005270631366298509,
+      "target_rmse_unconditional": 0.0005270631366298509,
+      "mean_interval_width": 0.16015836628414568,
+      "runtime_seconds": {
+        "mean": 0.019859556186976986,
+        "p95": 0.03560989584657363
+      }
+    },
+    "naive_boundary": {
+      "n_total": 2000,
+      "status_accuracy": 0.25,
+      "confusion": {
+        "POINT_ESTIMABLE": {
+          "POINT_ESTIMABLE": 500
+        },
+        "SET_ESTIMABLE": {
+          "POINT_ESTIMABLE": 500
+        },
+        "NONRECOVERABLE": {
+          "POINT_ESTIMABLE": 500
+        },
+        "INCONCLUSIVE": {
+          "POINT_ESTIMABLE": 500
+        }
+      },
+      "false_point_count": 1500,
+      "nonpoint_oracle_count": 1500,
+      "false_point_rate": 1.0,
+      "false_point_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9974455692798185,
+        "upper": 1.0
+      },
+      "abstention_count": 0,
+      "abstention_rate": 0.0,
+      "abstention_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.0,
+        "upper": 0.001917047281252933
+      },
+      "failure_count": 0,
+      "point_oracle_count": 500,
+      "point_coverage_count": 499,
+      "point_coverage_rate": 0.998,
+      "point_coverage_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9887592932948532,
+        "upper": 0.9996468636054407
+      },
+      "target_rmse_conditional": 0.002605621101814369,
+      "target_rmse_unconditional": 0.002605621101814369,
+      "mean_interval_width": 0.4014727495011713,
+      "runtime_seconds": {
+        "mean": 4.597551405095146e-05,
+        "p95": 7.808510126778856e-05
+      }
+    },
+    "ridge": {
+      "n_total": 2000,
+      "status_accuracy": 0.25,
+      "confusion": {
+        "POINT_ESTIMABLE": {
+          "POINT_ESTIMABLE": 500
+        },
+        "SET_ESTIMABLE": {
+          "POINT_ESTIMABLE": 500
+        },
+        "NONRECOVERABLE": {
+          "POINT_ESTIMABLE": 500
+        },
+        "INCONCLUSIVE": {
+          "POINT_ESTIMABLE": 500
+        }
+      },
+      "false_point_count": 1500,
+      "nonpoint_oracle_count": 1500,
+      "false_point_rate": 1.0,
+      "false_point_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9974455692798185,
+        "upper": 1.0
+      },
+      "abstention_count": 0,
+      "abstention_rate": 0.0,
+      "abstention_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.0,
+        "upper": 0.001917047281252933
+      },
+      "failure_count": 0,
+      "point_oracle_count": 500,
+      "point_coverage_count": 500,
+      "point_coverage_rate": 1.0,
+      "point_coverage_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9923756595384479,
+        "upper": 1.0
+      },
+      "target_rmse_conditional": 0.0005299917887552454,
+      "target_rmse_unconditional": 0.0005299917887552454,
+      "mean_interval_width": 0.049475529231184916,
+      "runtime_seconds": {
+        "mean": 1.7682344521745108e-05,
+        "p95": 2.7670199415297244e-05
+      }
+    },
+    "tsvd": {
+      "n_total": 2000,
+      "status_accuracy": 0.25,
+      "confusion": {
+        "POINT_ESTIMABLE": {
+          "POINT_ESTIMABLE": 500
+        },
+        "SET_ESTIMABLE": {
+          "POINT_ESTIMABLE": 500
+        },
+        "NONRECOVERABLE": {
+          "POINT_ESTIMABLE": 500
+        },
+        "INCONCLUSIVE": {
+          "POINT_ESTIMABLE": 500
+        }
+      },
+      "false_point_count": 1500,
+      "nonpoint_oracle_count": 1500,
+      "false_point_rate": 1.0,
+      "false_point_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9974455692798185,
+        "upper": 1.0
+      },
+      "abstention_count": 0,
+      "abstention_rate": 0.0,
+      "abstention_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.0,
+        "upper": 0.001917047281252933
+      },
+      "failure_count": 0,
+      "point_oracle_count": 500,
+      "point_coverage_count": 500,
+      "point_coverage_rate": 1.0,
+      "point_coverage_interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.9923756595384479,
+        "upper": 1.0
+      },
+      "target_rmse_conditional": 0.0005270631366298793,
+      "target_rmse_unconditional": 0.0005270631366298793,
+      "mean_interval_width": 0.04947871181654719,
+      "runtime_seconds": {
+        "mean": 2.9735751428233925e-05,
+        "p95": 3.887499769916758e-05
+      }
+    }
+  },
+  "config": {
+    "n": 500,
+    "T": 20.0,
+    "delta": 0.01,
+    "t0": 5.0,
+    "Q": 5.0,
+    "Qresp": 20.0,
+    "Delta": 1.0,
+    "C": 3,
+    "kappa_X": 0.5,
+    "mu_X": 0.0,
+    "sigma_X": 0.4,
+    "kappa_V": 0.8,
+    "mu_V": 0.0,
+    "sigma_V": 0.25,
+    "beta_X": 0.5,
+    "beta_V": 0.3,
+    "kappa_U": 1.0,
+    "sigma_U": 0.2,
+    "process_noise_sigma": 0.0,
+    "sigma_meas": 0.1,
+    "lambda0": [
+      0.1,
+      0.08,
+      0.06
+    ],
+    "alpha_x": [
+      0.35,
+      -0.25,
+      0.2
+    ],
+    "alpha_v": [
+      0.2,
+      0.3,
+      -0.2
+    ],
+    "alpha_y": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "alpha_n": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rho_window": [
+      5.0,
+      10.0
+    ],
+    "rho_type": 1,
+    "rho": 1.5,
+    "J": [
+      1.0,
+      0.5,
+      -0.7
+    ],
+    "a1": [
+      0.6,
+      0.3,
+      -0.4
+    ],
+    "a2": [
+      0.2,
+      0.1,
+      -0.1
+    ],
+    "a3": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "beta_kernel": [
+      1.0,
+      0.3,
+      0.8
+    ],
+    "L_holder": 1.0,
+    "alpha_holder": 1.0,
+    "eta": 1.0,
+    "master_seed": 20260811,
+    "n_bootstrap": 999,
+    "n_reps_smoke": 3,
+    "n_reps_dev": 50,
+    "n_reps_main": 500,
+    "svd_tol": 1e-10,
+    "n_trajectories_smoke": 600,
+    "n_trajectories_dev": 900,
+    "n_trajectories_main": 1200,
+    "split_ratios": [
+      0.4,
+      0.3,
+      0.3
+    ],
+    "parameter_dim": 3,
+    "theta": [
+      1.0,
+      0.4,
+      -0.3
+    ],
+    "target_C": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "theta_radius": 1.2,
+    "outcome_noise_sigma": 0.01,
+    "response_noise_sigma": 0.01,
+    "design_noise_sigma_point": 0.001,
+    "design_noise_sigma_set": 0.05,
+    "temporal_slope": 0.02,
+    "holder_L_point": 0.05,
+    "holder_L_gap": 0.25,
+    "holder_alpha": 1.0,
+    "support_bandwidth": 0.4,
+    "lower_mass_beta": 1.0,
+    "component_delta": 0.02,
+    "scientific_tolerance": 0.05,
+    "bandwidth_grid": [
+      0.1,
+      0.2,
+      0.4,
+      0.8,
+      1.2
+    ],
+    "ridge_grid": [
+      0.0,
+      0.001,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "rank_grid": [
+      1,
+      2,
+      3
+    ],
+    "cv_folds": 5,
+    "mc_confidence_level": 0.95,
+    "missing_point_penalty": 2.0,
+    "gate_min_coverage_lower": 0.8,
+    "gate_max_false_point_upper": 0.1,
+    "gate_min_status_accuracy": 0.95,
+    "mode": "main"
+  },
+  "main_readiness_gate": {
+    "main_ready": true,
+    "checks": {
+      "split_integrity": {
+        "passed": true,
+        "observed": 500,
+        "required": 500
+      },
+      "record_completeness": {
+        "passed": true,
+        "observed": {
+          "crome": 2000,
+          "naive_boundary": 2000,
+          "ridge": 2000,
+          "tsvd": 2000
+        },
+        "required": 2000
+      },
+      "coverage_lower_bound": {
+        "passed": true,
+        "observed": 0.9923756595384479,
+        "required": 0.8
+      },
+      "false_point_upper_bound": {
+        "passed": true,
+        "observed": 0.0025544307201814864,
+        "required": 0.1
+      },
+      "status_accuracy": {
+        "passed": true,
+        "observed": 1.0,
+        "required": 0.95
+      },
+      "no_point_leakage": {
+        "passed": true,
+        "observed": true,
+        "required": true
+      },
+      "false_point_improvement": {
+        "passed": true,
+        "observed": {
+          "crome": 0.0,
+          "naive_boundary": 1.0,
+          "ridge": 1.0,
+          "tsvd": 1.0
+        },
+        "required": "CROME strictly lower than every point baseline"
+      },
+      "finite_or_explicit_null": {
+        "passed": true,
+        "observed": true,
+        "required": true
+      }
+    },
+    "interpretation": "A passed pilot Gate authorizes the predeclared main run; it does not by itself establish external validity or venue-level novelty."
+  },
+  "runtime_versions": {
+    "python": "3.14.6",
+    "numpy": "2.5.1"
+  }
+}

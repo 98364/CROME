@@ -1,0 +1,9 @@
+master_seed: 20260811
+n_reps_smoke: 8
+n_reps_dev: 50
+n_reps_main: 200
+scientific_tolerance: 0.05
+point_error_radius: 0.02
+overlap_noise_radius: 0.01
+robust_design_error_bound: 0.20
+

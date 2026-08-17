@@ -1,0 +1,28 @@
+.DS_Store
+.venv/
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Local manuscript workspaces are maintained outside the public code repository.
+JSS/
+paper/
+
+# Downloaded source data and generated experiment ledgers.
+data/raw/
+results/raw/
+results/logs/
+
+# Editor and local environment files.
+.idea/
+.vscode/
+*.swp
+*.tmp

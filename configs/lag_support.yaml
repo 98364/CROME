@@ -1,0 +1,26 @@
+# Experiments 2–3: support gap + async phase
+name: lag_support
+mode: smoke
+
+Delta: 1.0
+q_star: 1.0
+J_a: 1.0
+master_seed: 20260806
+
+phase_designs:
+  - aligned
+  - discrete
+  - continuous_uniform
+  - gap_near_zero
+
+bandwidth_grid: [0.1, 0.2, 0.4, 0.8]
+near_zero_threshold: 0.2
+n_traj_smoke: 50
+n_traj_dev: 200
+n_traj_main: 500
+n_grid_smoke: [50, 100]
+n_grid_dev: [100, 250, 500]
+n_grid_main: [100, 250, 500, 1000, 2000]
+n_reps_smoke: 20
+n_reps_dev: 100
+n_reps_main: 300

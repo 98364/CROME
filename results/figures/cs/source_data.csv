@@ -1,0 +1,23 @@
+figure,panel,metric,value,n
+pipeline,workflow,nodes,5,
+rq1,a,LS dual median radius,2.000099997500125,200
+rq1,b,LS dual point yield percent,0.0,200
+rq1,b,LS dual interval coverage percent,100.0,200
+rq1,a,"Certificate-
+optimized median radius",1.017171347910611,200
+rq1,b,"Certificate-
+optimized point yield percent",100.0,200
+rq1,b,"Certificate-
+optimized interval coverage percent",100.0,200
+rq2,a,CROME point outputs,1542,3840
+rq2,a,"Matched
+uncertainty point outputs",1542,3840
+rq2,b,CROME false point percent,0.0,640
+rq2,b,"Matched
+uncertainty false point percent",87.96875,640
+rq3,a,full_crome point_oracle_yield percent,100.0,640
+rq3,a,no_support_certifier point_oracle_yield percent,0.0,640
+rq3,b,full_crome structural_null_recovery percent,100.0,160
+rq3,b,no_target_null_check structural_null_recovery percent,0.0,160
+rq3,c,full_crome false_point percent,0.0,320
+rq3,c,force_point false_point percent,100.0,320

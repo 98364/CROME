@@ -1,0 +1,25 @@
+master_seed: 20260811
+n_reps_smoke: 1
+n_reps_dev: 2
+n_reps_main: 3
+n_trajectories_smoke: [200, 500]
+n_trajectories_dev: [200, 500, 1000]
+n_trajectories_main: [250, 500, 1000, 2000, 5000]
+parameter_dims_smoke: [3, 10]
+parameter_dims_dev: [3, 10, 30]
+parameter_dims_main: [3, 10, 30, 60]
+events_per_trajectory_smoke: [1, 5]
+events_per_trajectory_dev: [1, 5, 20]
+events_per_trajectory_main: [1, 5, 20]
+endpoints_per_trajectory_smoke: [1, 4]
+endpoints_per_trajectory_dev: [1, 4, 12]
+endpoints_per_trajectory_main: [1, 4, 12]
+fixed_events: 5
+fixed_endpoints: 4
+fixed_n_trajectories: 1000
+fixed_parameter_dim: 10
+approximation_min_rows: 512
+approximation_row_multiplier: 8
+approximation_budget: 0.02
+scientific_tolerance: 0.021
+gate_min_status_agreement: 0.99

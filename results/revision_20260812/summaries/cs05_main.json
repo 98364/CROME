@@ -1,0 +1,204 @@
+{
+  "experiment": "cs05_scaling",
+  "mode": "main",
+  "master_seed": 20260811,
+  "config_sha256": "ee9e76f4c5bcba279c893f17d4b92ce3a4ff062ee7e6c1c68fe7af76e8ef3e43",
+  "n_reps": 3,
+  "n_cells": 28,
+  "measurement_protocol": "single process; one warm-up excluded; perf_counter; tracemalloc peak plus explicit input bytes",
+  "empirical_slopes": {
+    "runtime_vs_rows": 1.0156006457096498,
+    "memory_vs_rows": 1.011371643725331,
+    "runtime_vs_parameter_dim": 0.8423592260243113,
+    "interpretation": "descriptive log-log slopes on the configured finite grid; not asymptotic complexity theorems"
+  },
+  "gate": {
+    "passed": true,
+    "checks": {
+      "cell_completeness": {
+        "passed": true,
+        "observed": 84,
+        "required": 84
+      },
+      "finite_runtime_memory": {
+        "passed": true,
+        "observed": true,
+        "required": true
+      },
+      "status_agreement": {
+        "passed": true,
+        "observed": 1.0,
+        "required": 0.99
+      },
+      "approximation_budget": {
+        "passed": true,
+        "observed": 4.551914400963142e-15,
+        "required": 0.02
+      }
+    }
+  },
+  "artifact_audit": {
+    "unique_keys": true,
+    "strict_json": true
+  },
+  "config": {
+    "n": 500,
+    "T": 20.0,
+    "delta": 0.01,
+    "t0": 5.0,
+    "Q": 5.0,
+    "Qresp": 20.0,
+    "Delta": 1.0,
+    "C": 3,
+    "kappa_X": 0.5,
+    "mu_X": 0.0,
+    "sigma_X": 0.4,
+    "kappa_V": 0.8,
+    "mu_V": 0.0,
+    "sigma_V": 0.25,
+    "beta_X": 0.5,
+    "beta_V": 0.3,
+    "kappa_U": 1.0,
+    "sigma_U": 0.2,
+    "process_noise_sigma": 0.0,
+    "sigma_meas": 0.1,
+    "lambda0": [
+      0.1,
+      0.08,
+      0.06
+    ],
+    "alpha_x": [
+      0.35,
+      -0.25,
+      0.2
+    ],
+    "alpha_v": [
+      0.2,
+      0.3,
+      -0.2
+    ],
+    "alpha_y": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "alpha_n": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rho_window": [
+      5.0,
+      10.0
+    ],
+    "rho_type": 1,
+    "rho": 1.5,
+    "J": [
+      1.0,
+      0.5,
+      -0.7
+    ],
+    "a1": [
+      0.6,
+      0.3,
+      -0.4
+    ],
+    "a2": [
+      0.2,
+      0.1,
+      -0.1
+    ],
+    "a3": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "beta_kernel": [
+      1.0,
+      0.3,
+      0.8
+    ],
+    "L_holder": 1.0,
+    "alpha_holder": 1.0,
+    "eta": 1.0,
+    "master_seed": 20260811,
+    "n_bootstrap": 999,
+    "n_reps_smoke": 1,
+    "n_reps_dev": 2,
+    "n_reps_main": 3,
+    "svd_tol": 1e-10,
+    "n_trajectories_smoke": [
+      200,
+      500
+    ],
+    "n_trajectories_dev": [
+      200,
+      500,
+      1000
+    ],
+    "n_trajectories_main": [
+      250,
+      500,
+      1000,
+      2000,
+      5000
+    ],
+    "parameter_dims_smoke": [
+      3,
+      10
+    ],
+    "parameter_dims_dev": [
+      3,
+      10,
+      30
+    ],
+    "parameter_dims_main": [
+      3,
+      10,
+      30,
+      60
+    ],
+    "events_per_trajectory_smoke": [
+      1,
+      5
+    ],
+    "events_per_trajectory_dev": [
+      1,
+      5,
+      20
+    ],
+    "events_per_trajectory_main": [
+      1,
+      5,
+      20
+    ],
+    "endpoints_per_trajectory_smoke": [
+      1,
+      4
+    ],
+    "endpoints_per_trajectory_dev": [
+      1,
+      4,
+      12
+    ],
+    "endpoints_per_trajectory_main": [
+      1,
+      4,
+      12
+    ],
+    "fixed_events": 5,
+    "fixed_endpoints": 4,
+    "fixed_n_trajectories": 1000,
+    "fixed_parameter_dim": 10,
+    "approximation_min_rows": 512,
+    "approximation_row_multiplier": 8,
+    "approximation_budget": 0.02,
+    "scientific_tolerance": 0.021,
+    "gate_min_status_agreement": 0.99,
+    "mode": "main"
+  },
+  "runtime_versions": {
+    "python": "3.14.6",
+    "numpy": "2.5.1"
+  }
+}
