@@ -56,6 +56,7 @@ def _four_regime_decisions(
         noise_radius=float(cfg["overlap_noise_radius"]),
         design_error_bound=0.0,
         theta_radius=3.0,
+        weight_strategy="certificate_optimal",
         exact_design=True,
         deterministic_uncertainty=True,
         target_id="scalar_target",
@@ -91,6 +92,7 @@ def _four_regime_decisions(
         noise_radius=0.0,
         design_error_bound=0.0,
         theta_radius=3.0,
+        weight_strategy="certificate_optimal",
         exact_design=True,
         exact_null_proof=exact_null_fixture_proof(
             null_operator,
@@ -175,6 +177,7 @@ def _robustness_check(cfg: dict[str, Any]) -> dict[str, Any]:
         "noise_radius": float(cfg["overlap_noise_radius"]),
         "theta_radius": 3.0,
         "exact_design": False,
+        "weight_strategy": "certificate_optimal",
         "deterministic_uncertainty": True,
         "target_id": "scalar_target",
         "provenance": "CS01 deterministic bounded-error sensitivity fixture",

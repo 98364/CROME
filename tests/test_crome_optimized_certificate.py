@@ -118,6 +118,31 @@ def test_certificate_optimized_weights_do_not_exceed_least_squares_radius():
     assert diagnostics["duality_gap"] <= 1e-5
 
 
+def test_overlap_certifier_defaults_to_certificate_optimized_weights():
+    design = np.array(
+        [
+            [1.0, 0.0],
+            [1.0, 1.0e-3],
+            [1.0, 2.0e-3],
+        ]
+    )
+
+    certificate = certify_overlap_target(
+        design,
+        np.array([0.0, 1.0, 2.0]),
+        np.array([0.0, 1.0]),
+        noise_radius=0.05,
+        design_error_bound=0.02,
+        theta_radius=2.0,
+        exact_design=False,
+        deterministic_uncertainty=True,
+        provenance="unit-test default weight strategy",
+    )
+
+    assert certificate.diagnostics["weight_strategy"] == "certificate_optimal"
+    assert "primal_radius" in certificate.diagnostics
+
+
 def test_missing_global_ledger_blocks_conditional_point_upgrade():
     certificate = TargetCertificate(
         source="overlap",

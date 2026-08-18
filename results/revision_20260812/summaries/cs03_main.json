@@ -60,11 +60,11 @@
       "target_rmse_unconditional": 1.4396214917952639,
       "mean_interval_width": 0.21640019885645495,
       "runtime_seconds": {
-        "mean": 0.014052755856247738,
-        "p95": 0.02460420240313397
+        "mean": 0.014308863254344335,
+        "p95": 0.025005337801849235
       }
     },
-    "crome_current": {
+    "crome_ls_dual": {
       "n_total": 3840,
       "status_accuracy": 0.5369791666666667,
       "confusion": {
@@ -115,8 +115,8 @@
       "target_rmse_unconditional": 1.4396214917952639,
       "mean_interval_width": 0.21706146160304432,
       "runtime_seconds": {
-        "mean": 0.013449244488826177,
-        "p95": 0.02388312705224962
+        "mean": 0.013675558568744842,
+        "p95": 0.024209637500462122
       }
     },
     "matched_uncertainty": {
@@ -170,8 +170,8 @@
       "target_rmse_unconditional": 1.666237695506775,
       "mean_interval_width": 0.005404141767170149,
       "runtime_seconds": {
-        "mean": 1.694360567322898e-05,
-        "p95": 1.7958001990336925e-05
+        "mean": 1.8805279959603165e-05,
+        "p95": 2.2041989723220468e-05
       }
     },
     "naive_boundary": {
@@ -224,8 +224,8 @@
       "target_rmse_unconditional": 0.07736702094494848,
       "mean_interval_width": 0.11759999999999995,
       "runtime_seconds": {
-        "mean": 2.424008861036479e-05,
-        "p95": 3.574999573174864e-05
+        "mean": 3.554267368978496e-05,
+        "p95": 6.28749985480681e-05
       }
     },
     "ridge": {
@@ -277,8 +277,8 @@
       "target_rmse_unconditional": 0.05210473137133988,
       "mean_interval_width": 0.11759999999999995,
       "runtime_seconds": {
-        "mean": 1.1107688571125134e-05,
-        "p95": 1.2582997806021013e-05
+        "mean": 1.4745528627220968e-05,
+        "p95": 1.987499199458398e-05
       }
     },
     "tsvd": {
@@ -330,8 +330,8 @@
       "target_rmse_unconditional": 0.05198563627585725,
       "mean_interval_width": 0.11759999999999995,
       "runtime_seconds": {
-        "mean": 2.5144598256095683e-05,
-        "p95": 2.8336054674582544e-05
+        "mean": 2.9895881599865485e-05,
+        "p95": 3.862705343635752e-05
       }
     }
   },
@@ -550,7 +550,7 @@
     "rq1": {
       "radius_noninferiority": true,
       "median_radius_optimal": 1.017171347910611,
-      "median_radius_current": 2.000099997500125,
+      "median_radius_ls_dual": 2.000099997500125,
       "median_radius_reduction": 0.9829286495895138,
       "optimal": {
         "eligible": 200,
@@ -560,7 +560,7 @@
         "marginal_coverage": 1.0,
         "tolerance_violation": 0.0
       },
-      "current": {
+      "ls_dual": {
         "eligible": 200,
         "point_outputs": 0,
         "point_yield": 0.0,
@@ -576,7 +576,7 @@
         "marginal_coverage": 0.481875,
         "tolerance_violation": 0.0
       },
-      "stress_grid_current": {
+      "stress_grid_ls_dual": {
         "eligible": 3200,
         "point_outputs": 1542,
         "point_yield": 0.481875,
@@ -657,7 +657,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -763,7 +763,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -869,7 +869,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -975,7 +975,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -1081,7 +1081,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -1187,7 +1187,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -1293,7 +1293,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -1399,7 +1399,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -1505,7 +1505,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -1611,7 +1611,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -1717,7 +1717,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -1823,7 +1823,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -1929,7 +1929,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -2035,7 +2035,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -2141,7 +2141,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -2247,7 +2247,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -2353,7 +2353,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -2459,7 +2459,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -2565,7 +2565,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -2671,7 +2671,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -2777,7 +2777,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -2883,7 +2883,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -2989,7 +2989,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -3095,7 +3095,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -3201,7 +3201,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -3307,7 +3307,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -3413,7 +3413,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -3519,7 +3519,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -3625,7 +3625,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -3731,7 +3731,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -3837,7 +3837,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -3943,7 +3943,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -4049,7 +4049,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -4155,7 +4155,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -4261,7 +4261,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -4367,7 +4367,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -4473,7 +4473,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -4579,7 +4579,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -4685,7 +4685,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -4791,7 +4791,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -4897,7 +4897,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -5003,7 +5003,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -5109,7 +5109,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -5215,7 +5215,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -5321,7 +5321,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -5427,7 +5427,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -5533,7 +5533,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -5639,7 +5639,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -5745,7 +5745,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -5851,7 +5851,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -5957,7 +5957,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -6063,7 +6063,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -6169,7 +6169,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -6275,7 +6275,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -6381,7 +6381,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -6487,7 +6487,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -6593,7 +6593,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -6699,7 +6699,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -6805,7 +6805,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -6911,7 +6911,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -7017,7 +7017,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -7123,7 +7123,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -7229,7 +7229,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -7335,7 +7335,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -7441,7 +7441,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -7547,7 +7547,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -7653,7 +7653,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -7759,7 +7759,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -7865,7 +7865,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -7971,7 +7971,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -8077,7 +8077,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -8183,7 +8183,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -8289,7 +8289,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -8395,7 +8395,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -8501,7 +8501,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -8607,7 +8607,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -8713,7 +8713,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -8819,7 +8819,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -8925,7 +8925,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -9031,7 +9031,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -9137,7 +9137,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -9243,7 +9243,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -9349,7 +9349,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -9455,7 +9455,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -9561,7 +9561,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -9667,7 +9667,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -9773,7 +9773,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -9879,7 +9879,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -9985,7 +9985,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -10091,7 +10091,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -10197,7 +10197,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -10303,7 +10303,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -10409,7 +10409,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -10515,7 +10515,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -10621,7 +10621,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -10727,7 +10727,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -10833,7 +10833,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -10939,7 +10939,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -11045,7 +11045,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -11151,7 +11151,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -11257,7 +11257,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -11363,7 +11363,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -11469,7 +11469,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -11575,7 +11575,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -11681,7 +11681,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -11787,7 +11787,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -11893,7 +11893,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -11999,7 +11999,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -12105,7 +12105,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -12211,7 +12211,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -12317,7 +12317,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -12423,7 +12423,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -12529,7 +12529,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -12635,7 +12635,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -12741,7 +12741,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -12847,7 +12847,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -12953,7 +12953,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -13059,7 +13059,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -13165,7 +13165,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -13271,7 +13271,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -13377,7 +13377,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -13483,7 +13483,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -13589,7 +13589,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -13695,7 +13695,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -13801,7 +13801,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -13907,7 +13907,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -14013,7 +14013,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -14119,7 +14119,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -14225,7 +14225,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -14331,7 +14331,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -14437,7 +14437,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -14543,7 +14543,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -14649,7 +14649,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -14755,7 +14755,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -14861,7 +14861,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -14967,7 +14967,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -15073,7 +15073,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -15179,7 +15179,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -15285,7 +15285,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -15391,7 +15391,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -15497,7 +15497,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -15603,7 +15603,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -15709,7 +15709,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -15815,7 +15815,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -15921,7 +15921,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -16027,7 +16027,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -16133,7 +16133,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -16239,7 +16239,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -16345,7 +16345,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -16451,7 +16451,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -16557,7 +16557,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -16663,7 +16663,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -16769,7 +16769,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -16875,7 +16875,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -16981,7 +16981,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -17087,7 +17087,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -17193,7 +17193,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -17299,7 +17299,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -17405,7 +17405,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -17511,7 +17511,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -17617,7 +17617,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -17723,7 +17723,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -17829,7 +17829,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -17935,7 +17935,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -18041,7 +18041,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -18147,7 +18147,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -18253,7 +18253,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -18359,7 +18359,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -18465,7 +18465,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -18571,7 +18571,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -18677,7 +18677,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -18783,7 +18783,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -18889,7 +18889,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -18995,7 +18995,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -19101,7 +19101,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -19207,7 +19207,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -19313,7 +19313,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -19419,7 +19419,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -19525,7 +19525,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -19631,7 +19631,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -19737,7 +19737,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -19843,7 +19843,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -19949,7 +19949,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -20055,7 +20055,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -20161,7 +20161,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -20267,7 +20267,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -20373,7 +20373,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -20479,7 +20479,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -20585,7 +20585,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -20691,7 +20691,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -20797,7 +20797,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -20903,7 +20903,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -21009,7 +21009,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -21115,7 +21115,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -21221,7 +21221,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -21327,7 +21327,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -21433,7 +21433,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -21539,7 +21539,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -21645,7 +21645,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {
@@ -21751,7 +21751,7 @@
           "certificate_radius": 1.017171347910611,
           "covered": true
         },
-        "crome_current": {
+        "crome_ls_dual": {
           "status": "INCONCLUSIVE",
           "certificate_scope": "assumption_conditional",
           "feasible_set": {

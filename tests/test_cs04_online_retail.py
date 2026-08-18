@@ -35,8 +35,13 @@ def test_predeclared_real_timing_regimes_have_required_geometry():
 
 def test_cs04_smoke_uses_all_customers_and_emits_four_statuses(tmp_path):
     result = run("smoke", tmp_path)
+    assert result["crome_weight_strategy"] == "certificate_optimal"
     assert result["data_profile"]["eligible_customers"] == 2505
     assert all(row["n_customers"] == 2505 for row in result["replication_records"])
+    assert all(
+        row["methods"]["crome"]["weight_strategy"] == "certificate_optimal"
+        for row in result["replication_records"]
+    )
     statuses = {row["methods"]["crome"]["status"] for row in result["replication_records"]}
     assert statuses == {"POINT_ESTIMABLE", "NONRECOVERABLE", "INCONCLUSIVE"}
     product_statuses = {

@@ -214,6 +214,10 @@ def build_final_gate(
         "cs02": bool(summaries["cs02"]["main_readiness_gate"]["main_ready"]),
         **{name: bool(summaries[name]["gate"]["passed"]) for name in ("cs03", "cs04", "cs05", "cs06")},
     }
+    certificate_weight_strategies = {
+        name: summaries[name].get("crome_weight_strategy")
+        for name in ("cs02", "cs04", "cs05")
+    }
     support_audit = audit_public_cs_artifacts(root, revision_dir)
     revision_audit = audit_revision_cs_artifacts(root, revision_dir)
     ablation_contract = _single_component_ablation_contract(
@@ -238,6 +242,14 @@ def build_final_gate(
     }
     checks = {
         "all_experiment_gates": _check(all(experiment_passes.values()), experiment_passes, True),
+        "certificate_weight_strategy": _check(
+            all(
+                strategy == "certificate_optimal"
+                for strategy in certificate_weight_strategies.values()
+            ),
+            certificate_weight_strategies,
+            {name: "certificate_optimal" for name in certificate_weight_strategies},
+        ),
         "artifact_integrity": _check(
             support_audit["passed"] and revision_audit["passed"],
             {"public_release": support_audit["passed"], "revision_evidence": revision_audit["passed"]},

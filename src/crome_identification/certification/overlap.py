@@ -352,7 +352,7 @@ def certify_overlap_target(
     approximation_error: float = 0.0,
     baseline_support_radius: float = 0.0,
     approximation_support_radius: float = 0.0,
-    weight_strategy: str = "least_squares",
+    weight_strategy: str = "certificate_optimal",
     exact_design: bool,
     exact_null_proof: ExactNullProof | None = None,
     algebraic_tolerance: float = 1e-10,
@@ -363,6 +363,10 @@ def certify_overlap_target(
     provenance: str = "",
 ) -> TargetCertificate:
     """Construct a scalar target certificate from a direct dual estimator.
+
+    The default ``certificate_optimal`` strategy minimizes the declared
+    certificate radius.  ``least_squares`` remains available as an explicit
+    baseline/ablation strategy.
 
     For estimated designs the reported radius is
 

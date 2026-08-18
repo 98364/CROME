@@ -78,6 +78,7 @@ def _measure_certificate(design: np.ndarray, outcomes: np.ndarray, target: np.nd
     certificate = certify_overlap_target(
         design, outcomes, target, noise_radius=0.0, design_error_bound=0.0,
         theta_radius=theta_radius, approximation_error=0.0 if exact else approximation_budget,
+        weight_strategy="certificate_optimal",
         exact_design=exact,
         deterministic_uncertainty=not exact,
         target_id="scalar_target",
@@ -94,6 +95,7 @@ def _measure_certificate(design: np.ndarray, outcomes: np.ndarray, target: np.nd
         "peak_python_bytes": int(peak),
         "target_residual": certificate.diagnostics["target_residual"],
         "target_amplification": certificate.diagnostics["target_amplification"],
+        "weight_strategy": certificate.diagnostics["weight_strategy"],
         "certificate_scope": decision.certificate_scope.value,
     }
 
@@ -258,6 +260,8 @@ def _write_csv(records: list[dict[str, Any]], config_hash: str, path: Path):
         "approximate_peak_python_bytes": row["approximate"]["peak_python_bytes"],
         "input_matrix_bytes": row["input_matrix_bytes"], "target_discrepancy": row["target_discrepancy"],
         "status_agreement": int(row["status_agreement"]), "config_sha256": config_hash,
+        "exact_weight_strategy": row["exact"]["weight_strategy"],
+        "approximate_weight_strategy": row["approximate"]["weight_strategy"],
     } for row in records]
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
@@ -275,9 +279,19 @@ def run(mode: str = "smoke", outdir: Path | None = None) -> dict[str, Any]:
     records = [_run_spec(cfg, spec, rep, mode) for rep in range(n_reps) for spec in specs]
     config_hash = _hash_json(cfg); slopes = _empirical_slopes(records)
     keys = [(row["rep"], row["spec_key"]) for row in records]
+    crome_weight_strategies = sorted({
+        output["weight_strategy"]
+        for row in records
+        for output in (row["exact"], row["approximate"])
+    })
     result = {
         "experiment": "cs05_scaling", "mode": mode, "master_seed": int(cfg["master_seed"]),
         "config_sha256": config_hash, "n_reps": n_reps, "n_cells": len(specs),
+        "crome_weight_strategy": (
+            crome_weight_strategies[0]
+            if len(crome_weight_strategies) == 1
+            else crome_weight_strategies
+        ),
         "measurement_protocol": "single process; one warm-up excluded; perf_counter; tracemalloc peak plus explicit input bytes",
         "runtime_environment": _runtime_environment(),
         "empirical_slopes": slopes, "gate": _gate(cfg, records, n_reps * len(specs)),

@@ -56,7 +56,7 @@ from ._proof_fixtures import (
 
 _METHODS = (
     "crome_optimal",
-    "crome_current",
+    "crome_ls_dual",
     "matched_uncertainty",
     "naive_boundary",
     "ridge",
@@ -440,7 +440,7 @@ def _run_cell(cfg: dict[str, Any], cell: CellSpec, rep: int, mode: str,
         test,
         weight_strategy="certificate_optimal",
     )
-    crome_current, _ = _crome_output(
+    crome_ls_dual, _ = _crome_output(
         cfg,
         cell,
         data,
@@ -491,7 +491,7 @@ def _run_cell(cfg: dict[str, Any], cell: CellSpec, rep: int, mode: str,
         "calibration": calibration_record,
         "methods": {
             "crome_optimal": crome_optimal,
-            "crome_current": crome_current,
+            "crome_ls_dual": crome_ls_dual,
             "matched_uncertainty": _matched_uncertainty_candidate(
                 cfg,
                 data,
@@ -668,7 +668,7 @@ def _utility_pilot(cfg: dict[str, Any], mode: str) -> list[dict[str, Any]]:
         methods: dict[str, Any] = {}
         for name, strategy in (
             ("crome_optimal", "certificate_optimal"),
-            ("crome_current", "least_squares"),
+            ("crome_ls_dual", "least_squares"),
         ):
             certificate = certify_overlap_target(
                 design,
@@ -745,14 +745,14 @@ def _story_metrics(
     paired_radii = [
         (
             float(row["methods"]["crome_optimal"]["certificate_radius"]),
-            float(row["methods"]["crome_current"]["certificate_radius"]),
+            float(row["methods"]["crome_ls_dual"]["certificate_radius"]),
         )
         for row in utility_records
         if row["methods"]["crome_optimal"].get("certificate_radius") is not None
-        and row["methods"]["crome_current"].get("certificate_radius") is not None
+        and row["methods"]["crome_ls_dual"].get("certificate_radius") is not None
     ]
     optimal_radii = np.asarray([pair[0] for pair in paired_radii], dtype=float)
-    current_radii = np.asarray([pair[1] for pair in paired_radii], dtype=float)
+    ls_dual_radii = np.asarray([pair[1] for pair in paired_radii], dtype=float)
     optimal_points = sum(
         row["methods"]["crome_optimal"]["status"]
         == DecisionStatus.POINT_ESTIMABLE.value
@@ -778,20 +778,20 @@ def _story_metrics(
     return {
         "rq1": {
             "radius_noninferiority": bool(
-                np.all(optimal_radii <= current_radii + 1e-8)
+                np.all(optimal_radii <= ls_dual_radii + 1e-8)
             ),
             "median_radius_optimal": float(np.median(optimal_radii)),
-            "median_radius_current": float(np.median(current_radii)),
+            "median_radius_ls_dual": float(np.median(ls_dual_radii)),
             "median_radius_reduction": float(
-                np.median(current_radii - optimal_radii)
+                np.median(ls_dual_radii - optimal_radii)
             ),
             "optimal": _utility_metrics(utility_records, "crome_optimal"),
-            "current": _utility_metrics(utility_records, "crome_current"),
+            "ls_dual": _utility_metrics(utility_records, "crome_ls_dual"),
             "stress_grid_optimal": _point_metrics(
                 records, "crome_optimal", tolerance
             ),
-            "stress_grid_current": _point_metrics(
-                records, "crome_current", tolerance
+            "stress_grid_ls_dual": _point_metrics(
+                records, "crome_ls_dual", tolerance
             ),
         },
         "rq2": {

@@ -12,7 +12,7 @@
       },
       "svg": {
         "name": "figure_00_evidence_certificate_route.svg",
-        "sha256": "93b4770a182a8a48c15a97cb7c03dc051be07a4e5da13802f0ec272797053647"
+        "sha256": "bb12b96040330a97732ac803328a969195ebe76d33d96e858986d616048da04f"
       },
       "tiff": {
         "name": "figure_00_evidence_certificate_route.tiff",
@@ -30,7 +30,7 @@
       },
       "svg": {
         "name": "figure_01_certificate_optimization.svg",
-        "sha256": "00400cd861b41f7d36dd58b982cb1ab750f7541fcdcb83e055044aa53659ea48"
+        "sha256": "21dac40110ea346f9c3b923a9ae022a15b29c4e073aa3c777b18c7a9bb9a56f5"
       },
       "tiff": {
         "name": "figure_01_certificate_optimization.tiff",
@@ -48,7 +48,7 @@
       },
       "svg": {
         "name": "figure_02_matched_structural_safety.svg",
-        "sha256": "c75c309bc070a2184f89e57419ad4a7d9236439a11a01b54c42de4c05203fd57"
+        "sha256": "9d9bcaed28c79393f69640ce45ce1edefa140b1a4deab1c74f078d98b3ba6e02"
       },
       "tiff": {
         "name": "figure_02_matched_structural_safety.tiff",
@@ -66,7 +66,7 @@
       },
       "svg": {
         "name": "figure_03_routing_ablation.svg",
-        "sha256": "9953b2977fde34499f1332616913b9ac47f0d40a0d20f074aa7961dc06494963"
+        "sha256": "0fb06502351b6bfba0b8d2e52f31ab2929256c4272a1407124749b4784be0a96"
       },
       "tiff": {
         "name": "figure_03_routing_ablation.tiff",
@@ -79,7 +79,7 @@
     "sha256": "080bd86bc0f0a1e0403550134b1ebddb7965dc890efae9be5ccc2b167e6688f9"
   },
   "source_summaries": {
-    "cs03_main.json": "6086196ab433a63f2c116e405e366751c9aa993455ecc7b4d9e8a1ec1561e148",
+    "cs03_main.json": "d4d00f1b9eb33a98b6b68d3ec5e765c6d95633d6b1603823acd89866b0518bb1",
     "cs06_main.json": "95eecdee4a3b4e7c40d85946ab5b55372dd4322ca5dfe9f45bc49bab36efa106"
   }
 }

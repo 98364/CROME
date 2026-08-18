@@ -273,6 +273,7 @@ def _crome(cfg: dict[str, Any], data: InjectedRetailData, train: np.ndarray,
         geometry.observed_design[test], data.outcomes[test], data.target,
         noise_radius=outcome_budget.vector_norm_bound,
         design_error_bound=design_error, theta_radius=float(cfg["theta_radius"]),
+        weight_strategy="certificate_optimal",
         exact_design=exact,
         budget_components=(
             ("outcome_noise",) if exact else ("outcome_noise", "design_error")
@@ -318,7 +319,11 @@ def _crome(cfg: dict[str, Any], data: InjectedRetailData, train: np.ndarray,
             "diagnostics": {"model_infeasible": True},
         }
         failed = True
-    output.update(runtime_seconds=perf_counter() - started, failed=failed)
+    output.update(
+        weight_strategy=overlap.diagnostics["weight_strategy"],
+        runtime_seconds=perf_counter() - started,
+        failed=failed,
+    )
     return output, {
         "outcome_noise": outcome_budget.as_dict(), "trace_noise": trace_budget.as_dict(),
         "design_error": design_calibration.as_dict() if design_calibration else None,
@@ -489,6 +494,7 @@ def _write_source(records: list[dict[str, Any]], config_hash: str, path: Path):
                 "interval_lower": interval[0] if interval else None,
                 "interval_upper": interval[1] if interval else None,
                 "runtime_seconds": output["runtime_seconds"], "config_sha256": config_hash,
+                "weight_strategy": output.get("weight_strategy"),
             })
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as handle:
@@ -506,10 +512,18 @@ def run(mode: str = "smoke", outdir: Path | None = None) -> dict[str, Any]:
     ]
     methods = {method: summarize_method_rows(_rows(records, method), level=float(cfg["mc_confidence_level"])) for method in _METHODS}
     config_hash = _hash_json(cfg)
+    crome_weight_strategies = sorted({
+        row["methods"]["crome"]["weight_strategy"] for row in records
+    })
     result = {
         "experiment": "cs04_online_retail", "mode": mode, "master_seed": int(cfg["master_seed"]),
         "fixture_kind": "oracle_informed_contract_fixture",
         "config_sha256": config_hash, "n_reps": mode_reps(cfg, mode), "n_regimes": len(cfg["regimes"]),
+        "crome_weight_strategy": (
+            crome_weight_strategies[0]
+            if len(crome_weight_strategies) == 1
+            else crome_weight_strategies
+        ),
         "benchmark_semantics": "real event timing + controlled coarsening; synthetic outcomes; no causal claim",
         "data_profile": profile, "processed_data_sha256": sha256_file(data_path),
         "methods": methods, "gate": _gate(cfg, records, int(profile["eligible_customers"])),

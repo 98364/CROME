@@ -26,10 +26,16 @@ def test_ridge_interval_handles_zero_lambda_structural_null_design():
 def test_cs02_records_disjoint_split_provenance_and_all_replications():
     out = cs02.run(mode="smoke", outdir=None)
 
+    assert out["crome_weight_strategy"] == "certificate_optimal"
     assert out["n_reps"] == len(out["replication_records"])
     assert all(row["split_audit"]["disjoint"] for row in out["replication_records"])
     assert set(out["methods"]) == {"crome", "naive_boundary", "ridge", "tsvd"}
     assert all(len(row["regimes"]) == 4 for row in out["replication_records"])
+    assert all(
+        regime["methods"]["crome"]["weight_strategy"] == "certificate_optimal"
+        for row in out["replication_records"]
+        for regime in row["regimes"]
+    )
     expected_rows = out["n_reps"] * 4
     assert all(summary["n_total"] == expected_rows for summary in out["methods"].values())
 

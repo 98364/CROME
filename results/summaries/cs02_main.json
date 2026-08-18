@@ -3,6 +3,7 @@
   "mode": "main",
   "master_seed": 20260811,
   "config_sha256": "b884d254c7264a2e6d60a30191088fdaf4c31ec67d3fe522e10de3936d90258a",
+  "crome_weight_strategy": "certificate_optimal",
   "n_reps": 500,
   "n_trajectories_per_regime": 1200,
   "n_regimes": 4,
@@ -58,8 +59,8 @@
       "target_rmse_unconditional": 0.0005270631366298509,
       "mean_interval_width": 0.16015836628414568,
       "runtime_seconds": {
-        "mean": 0.019580802110609512,
-        "p95": 0.03518791665082972
+        "mean": 0.021398059159018885,
+        "p95": 0.04050478960270994
       }
     },
     "naive_boundary": {
@@ -111,8 +112,8 @@
       "target_rmse_unconditional": 0.002605621101814369,
       "mean_interval_width": 0.4014727495011713,
       "runtime_seconds": {
-        "mean": 2.9097030419507065e-05,
-        "p95": 4.68812504550442e-05
+        "mean": 4.438343457877636e-05,
+        "p95": 7.495804966310971e-05
       }
     },
     "ridge": {
@@ -164,8 +165,8 @@
       "target_rmse_unconditional": 0.0005299917887552454,
       "mean_interval_width": 0.049475529231184916,
       "runtime_seconds": {
-        "mean": 1.417753392161103e-05,
-        "p95": 1.8916995395557022e-05
+        "mean": 1.8182417581556366e-05,
+        "p95": 2.800209513225127e-05
       }
     },
     "tsvd": {
@@ -217,8 +218,8 @@
       "target_rmse_unconditional": 0.0005270631366298793,
       "mean_interval_width": 0.04947871181654719,
       "runtime_seconds": {
-        "mean": 2.585927298059687e-05,
-        "p95": 3.0213097852538335e-05
+        "mean": 2.9290178143128286e-05,
+        "p95": 3.8290993325063026e-05
       }
     }
   },

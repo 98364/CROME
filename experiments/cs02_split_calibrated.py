@@ -234,6 +234,7 @@ def _crome_decision(
             noise_radius=0.0,
             design_error_bound=0.0,
             theta_radius=float(cfg["theta_radius"]),
+            weight_strategy="certificate_optimal",
             exact_design=True,
             exact_null_proof=coordinate_null_fixture_proof(
                 data.first_design[test],
@@ -258,6 +259,7 @@ def _crome_decision(
             noise_radius=outcome_noise.vector_norm_bound,
             design_error_bound=design_error.operator_error_bound,
             theta_radius=float(cfg["theta_radius"]),
+            weight_strategy="certificate_optimal",
             exact_design=False,
             budget_components=("outcome_noise", "design_error"),
             component_delta=delta,
@@ -323,7 +325,11 @@ def _crome_decision(
             failure_ledger=ledger,
         )
         output = decision.as_dict()
-        output.update(runtime_seconds=perf_counter() - started, failed=False)
+        output.update(
+            weight_strategy=overlap.diagnostics["weight_strategy"],
+            runtime_seconds=perf_counter() - started,
+            failed=False,
+        )
     except ModelInfeasibleError as exc:
         output = {
             "status": DecisionStatus.INCONCLUSIVE.value,
@@ -334,6 +340,7 @@ def _crome_decision(
             "assumptions": [],
             "reasons": [str(exc)],
             "diagnostics": {"model_infeasible": True},
+            "weight_strategy": overlap.diagnostics["weight_strategy"],
             "runtime_seconds": perf_counter() - started,
             "failed": True,
         }
@@ -657,6 +664,7 @@ def _source_rows(records: list[dict[str, Any]], config_hash: str) -> list[dict[s
                         "abstained": int(output["status"] == DecisionStatus.INCONCLUSIVE.value),
                         "failed": int(bool(output.get("failed", False))),
                         "runtime_seconds": output.get("runtime_seconds", 0.0),
+                        "weight_strategy": output.get("weight_strategy"),
                         "config_sha256": config_hash,
                     }
                 )
@@ -718,11 +726,21 @@ def run(mode: str = "smoke", outdir: Path | None = None) -> dict[str, Any]:
         for method in _METHODS
     }
     config_hash = _config_hash(cfg)
+    crome_weight_strategies = sorted({
+        regime["methods"]["crome"]["weight_strategy"]
+        for replication in replication_records
+        for regime in replication["regimes"]
+    })
     summary = {
         "experiment": "cs02_split_calibrated",
         "mode": mode,
         "master_seed": int(cfg["master_seed"]),
         "config_sha256": config_hash,
+        "crome_weight_strategy": (
+            crome_weight_strategies[0]
+            if len(crome_weight_strategies) == 1
+            else crome_weight_strategies
+        ),
         "n_reps": n_reps,
         "n_trajectories_per_regime": n_trajectories,
         "n_regimes": len(_REGIMES),

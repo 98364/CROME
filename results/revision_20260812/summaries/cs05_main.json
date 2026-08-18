@@ -5,6 +5,7 @@
   "config_sha256": "ee9e76f4c5bcba279c893f17d4b92ce3a4ff062ee7e6c1c68fe7af76e8ef3e43",
   "n_reps": 3,
   "n_cells": 28,
+  "crome_weight_strategy": "certificate_optimal",
   "measurement_protocol": "single process; one warm-up excluded; perf_counter; tracemalloc peak plus explicit input bytes",
   "runtime_environment": {
     "python": "3.14.6",
@@ -39,9 +40,9 @@
     }
   },
   "empirical_slopes": {
-    "runtime_vs_rows": 1.0129775650254047,
-    "memory_vs_rows": 1.0113762351151072,
-    "runtime_vs_parameter_dim": 0.8414099003137635,
+    "runtime_vs_rows": 1.0092638581867934,
+    "memory_vs_rows": 1.011349956359607,
+    "runtime_vs_parameter_dim": 0.8449497072013223,
     "interpretation": "descriptive log-log slopes on the configured finite grid; not asymptotic complexity theorems"
   },
   "gate": {

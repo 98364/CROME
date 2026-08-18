@@ -367,7 +367,7 @@ def _rq1_figure(cs03: dict[str, Any]) -> tuple[plt.Figure, list[dict[str, Any]]]
     colors = [COLORS["baseline"], COLORS["crome"]]
 
     radii = [
-        float(metric["median_radius_current"]),
+        float(metric["median_radius_ls_dual"]),
         float(metric["median_radius_optimal"]),
     ]
     bars = axes[0].bar(
@@ -416,11 +416,11 @@ def _rq1_figure(cs03: dict[str, Any]) -> tuple[plt.Figure, list[dict[str, Any]]]
 
     x = np.arange(2)
     point_yield = [
-        100 * float(metric["current"]["point_yield"]),
+        100 * float(metric["ls_dual"]["point_yield"]),
         100 * float(metric["optimal"]["point_yield"]),
     ]
     coverage = [
-        100 * float(metric["current"]["marginal_coverage"]),
+        100 * float(metric["ls_dual"]["marginal_coverage"]),
         100 * float(metric["optimal"]["marginal_coverage"]),
     ]
     width = 0.34

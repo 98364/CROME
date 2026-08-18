@@ -24,6 +24,7 @@ def test_scaling_specs_cover_trajectories_parameters_events_and_endpoints():
 
 def test_cs05_smoke_records_peak_memory_accuracy_and_slopes(tmp_path):
     result = run("smoke", tmp_path)
+    assert result["crome_weight_strategy"] == "certificate_optimal"
     assert result["artifact_audit"]["unique_keys"]
     assert result["gate"]["checks"]["cell_completeness"]["passed"]
     for row in result["replication_records"]:
@@ -32,6 +33,8 @@ def test_cs05_smoke_records_peak_memory_accuracy_and_slopes(tmp_path):
         assert row["input_matrix_bytes"] > 0
         assert math.isfinite(row["exact"]["runtime_seconds"])
         assert row["exact"]["status"] == row["approximate"]["status"]
+        assert row["exact"]["weight_strategy"] == "certificate_optimal"
+        assert row["approximate"]["weight_strategy"] == "certificate_optimal"
         assert row["target_discrepancy"] <= result["config"]["approximation_budget"]
     assert math.isfinite(result["empirical_slopes"]["runtime_vs_rows"])
     assert math.isfinite(result["empirical_slopes"]["memory_vs_rows"])

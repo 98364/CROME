@@ -125,6 +125,7 @@ def test_final_gate_is_conjunctive_and_authorizes_paper_build():
     gate = build_final_gate(".", rerun_smoke=True)
     assert gate["PAPER_BUILD_READY"]
     assert all(item["passed"] for item in gate["checks"].values())
+    assert gate["checks"]["certificate_weight_strategy"]["passed"]
     assert gate["artifact_ledger"]["cs03"]["summary"]["path"].startswith(
         "results/revision_20260812/"
     )

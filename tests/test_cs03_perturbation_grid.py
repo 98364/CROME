@@ -67,12 +67,13 @@ def test_cs03_smoke_is_complete_reproducible_and_auditable(tmp_path):
     assert first["artifact_audit"]["unique_keys"]
     assert set(first["methods"]) == {
         "crome_optimal",
-        "crome_current",
+        "crome_ls_dual",
         "matched_uncertainty",
         "naive_boundary",
         "ridge",
         "tsvd",
     }
+    assert "crome_current" not in first["methods"]
     statuses = {
         row["methods"]["crome_optimal"]["status"]
         for row in first["replication_records"]
@@ -101,9 +102,17 @@ def test_cs03_smoke_is_complete_reproducible_and_auditable(tmp_path):
     ) == expected_product_statuses
     for row in first["replication_records"]:
         optimal = row["methods"]["crome_optimal"].get("certificate_radius")
-        current = row["methods"]["crome_current"].get("certificate_radius")
-        if optimal is not None and current is not None:
-            assert optimal <= current + 1e-8
+        ls_dual = row["methods"]["crome_ls_dual"].get("certificate_radius")
+        assert (
+            row["methods"]["crome_optimal"]["overlap_diagnostics"]["weight_strategy"]
+            == "certificate_optimal"
+        )
+        assert (
+            row["methods"]["crome_ls_dual"]["overlap_diagnostics"]["weight_strategy"]
+            == "least_squares"
+        )
+        if optimal is not None and ls_dual is not None:
+            assert optimal <= ls_dual + 1e-8
     optimal_points = sum(
         row["methods"]["crome_optimal"]["status"] == "POINT_ESTIMABLE"
         for row in first["replication_records"]
@@ -116,7 +125,7 @@ def test_cs03_smoke_is_complete_reproducible_and_auditable(tmp_path):
     assert first["story_metrics"]["rq1"]["radius_noninferiority"]
     assert (
         first["story_metrics"]["rq1"]["optimal"]["point_yield"]
-        > first["story_metrics"]["rq1"]["current"]["point_yield"]
+        > first["story_metrics"]["rq1"]["ls_dual"]["point_yield"]
     )
     assert first["story_metrics"]["rq2"]["point_outputs_matched"]
     json.dumps(first, allow_nan=False)
